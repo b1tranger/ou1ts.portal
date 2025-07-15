@@ -1,2 +1,2 @@
-# temp.ouits.res.redirector
+# oUITS portal
 for redirecting oUITS Resources visitors to the new website
