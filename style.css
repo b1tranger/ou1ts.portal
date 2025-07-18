@@ -126,6 +126,9 @@ body {
 }
 
 .open-app-btn {
+    width: 40vw;
+    text-align: center;
+    margin: auto;
     display: block;
     background: linear-gradient(45deg, #81c784, #66bb6a);
     color: white;
