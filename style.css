@@ -372,6 +372,12 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+
+    .open-app-btn {
+        padding: .8rem;
+        margin: 0;
+    }
+
     .sidebar {
         width: 100%;
         bottom: 0;
@@ -383,6 +389,49 @@ body {
         border-radius: 20px 20px 0 0;
         border-right: none;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-header {
+        margin: -20px;
+        padding-top: 0;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+        padding-left: 10%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        /* margin-bottom: 1rem; */
+    }
+
+    /* .sidebar-header h2 {
+        color: #64b5f6;
+        font-size: 1.3rem;
+        font-weight: 600;
+    } */
+
+    /* .sidebar-header p {
+        color: #a0a0a0;
+        font-size: 0.7rem;
+        margin-top: 0.5rem;
+    } */
+
+    .nav-item {
+        margin-bottom: 0.5rem;
+    }
+
+    .nav-link {
+        display: block;
+        padding: .5rem 1.5rem;
+        color: #e0e6ed;
+        text-decoration: none;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .nav-menu {
+        list-style: none;
+        padding: 0;
+        padding-left: 5%;
     }
 
     .sidebar.active {

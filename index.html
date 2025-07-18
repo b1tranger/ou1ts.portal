@@ -40,8 +40,7 @@
                     <a href="#contact" class="nav-link">Contact Us</a>
                 </li> -->
                 <div class="sidebar-divider"></div>
-                <div style="display: flex;
-    justify-content: center;">
+                <div style="display: flex;justify-content: center;">
                     <a href="https://github.com/b1tranger/ou1ts.portal/releases" class="open-app-btn" target="_blank">
                         Open in App
                     </a>
@@ -183,99 +182,7 @@
         </main>
     </div>
 
-    <script>
-        // Menu toggle functionality
-        const menuToggle = document.getElementById('menuToggle');
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-        const mainContent = document.querySelector('.main-content');
-
-        // Desktop menu toggle
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        });
-
-        // Mobile menu toggle
-        mobileMenuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        });
-
-        overlay.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-
-        // Search functionality
-        const searchBox = document.getElementById('searchBox');
-        const resourceCards = document.querySelectorAll('.resource-card');
-
-        searchBox.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-
-            resourceCards.forEach(card => {
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                const description = card.querySelector('p').textContent.toLowerCase();
-
-                if (title.includes(searchTerm) || description.includes(searchTerm)) {
-                    card.style.display = 'block';
-                    card.style.opacity = '1';
-                } else {
-                    card.style.display = 'none';
-                    card.style.opacity = '0';
-                }
-            });
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                if (link.getAttribute('href').startsWith('#')) {
-                    e.preventDefault();
-                    const targetId = link.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
-
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-
-                        // Close sidebar on mobile after navigation
-                        if (window.innerWidth <= 768) {
-                            sidebar.classList.remove('active');
-                            overlay.classList.remove('active');
-                        }
-                    }
-                }
-            });
-        });
-
-        // Close sidebar when clicking outside on desktop
-        document.addEventListener('click', (e) => {
-            if (window.innerWidth > 768) {
-                if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
-                    sidebar.classList.remove('active');
-                    overlay.classList.remove('active');
-                }
-            } else {
-                // Mobile: close if clicking outside sidebar or mobile button
-                if (!sidebar.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
-                    sidebar.classList.remove('active');
-                    overlay.classList.remove('active');
-                }
-            }
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                overlay.classList.remove('active');
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
