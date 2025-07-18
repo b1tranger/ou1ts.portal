@@ -42,15 +42,7 @@
             </ul>
         </nav>
 
-
         <main class="main-content">
-
-
-            <!-- Mobile Menu Button -->
-            <button class="mobile-menu-button" id="mobileMenuToggle">☰</button>
-
-          
-
             <div class="header">
                 <button class="menu-toggle" id="menuToggle">☰</button>
                 <h1>Academic Resources Portal</h1>
@@ -66,8 +58,7 @@
                     <div class="resource-card">
                         <h3>b1t Academics</h3>
                         <p>Comprehensive collection of academic resources and study materials specifically designed for
-                            university students. Access textbooks, class notes, question banks, and other academic
-                            materials. Contribute to the community by uploading your notes and exam questions.</p>
+                            university students. Access textbooks, class notes, question banks, and other academic materials. Contribute to the community by uploading your notes and exam questions.</p>
                         <a href="https://b1tacad.netlify.app/" class="resource-link" target="_blank">Visit Project
                             →</a>
                     </div>
@@ -172,19 +163,11 @@
     <script>
         // Menu toggle functionality
         const menuToggle = document.getElementById('menuToggle');
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
         const mainContent = document.querySelector('.main-content');
 
-        // Desktop menu toggle
         menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        });
-
-        // Mobile menu toggle
-        mobileMenuToggle.addEventListener('click', () => {
             sidebar.classList.toggle('active');
             overlay.classList.toggle('active');
         });
@@ -243,12 +226,6 @@
         document.addEventListener('click', (e) => {
             if (window.innerWidth > 768) {
                 if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
-                    sidebar.classList.remove('active');
-                    overlay.classList.remove('active');
-                }
-            } else {
-                // Mobile: close if clicking outside sidebar or mobile button
-                if (!sidebar.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
                     sidebar.classList.remove('active');
                     overlay.classList.remove('active');
                 }
