@@ -125,6 +125,49 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
+.open-app-btn {
+    display: block;
+    background: linear-gradient(45deg, #81c784, #66bb6a);
+    color: white;
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(129, 199, 132, 0.3);
+    margin: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.open-app-btn:hover {
+    background: linear-gradient(45deg, #66bb6a, #4caf50);
+    transform: translateX(8px);
+    box-shadow: 0 6px 20px rgba(129, 199, 132, 0.4);
+}
+
+.open-app-btn::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: #4caf50;
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.open-app-btn:hover::before {
+    transform: scaleY(1);
+}
+
+.sidebar-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 1rem 0;
+}
+
 .menu-toggle {
     background: linear-gradient(45deg, #64b5f6, #42a5f5);
     border: none;
