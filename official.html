@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official UITS - oU1TS Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="category-page">
+        <header class="category-header">
+            <a href="index.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back
+            </a>
+            <div class="category-icon" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb);">
+                <i class="fa-solid fa-globe" style="color: #1976d2;"></i>
+            </div>
+            <div class="category-info">
+                <h1>Official UITS</h1>
+                <p>Portals & Notices</p>
+            </div>
+            <a href="#submit" class="add-link-btn">
+                <i class="fa-solid fa-plus"></i>
+                ADD LINK
+            </a>
+        </header>
+
+        <div class="project-list">
+            <div class="project-item">
+                <span class="project-number">01</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb);">
+                    <i class="fa-solid fa-school" style="color: #1976d2;"></i>
+                </div>
+                <div class="project-info">
+                    <h3>UITS Official Website</h3>
+                    <p>https://uits.edu.bd/</p>
+                </div>
+                <div class="project-actions">
+                    <a href="https://uits.edu.bd/" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://uits.edu.bd/')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <span class="project-number">02</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #fff3e0, #ffe0b2);">
+                    <i class="fa-solid fa-user-graduate" style="color: #f57c00;"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Student Portal</h3>
+                    <p>https://studentportal.uits.edu.bd/</p>
+                </div>
+                <div class="project-actions">
+                    <a href="https://studentportal.uits.edu.bd/" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://studentportal.uits.edu.bd/')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <span class="project-number">03</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9);">
+                    <i class="fa-solid fa-book-open" style="color: #388e3c;"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Library Portal</h3>
+                    <p>https://library.uits.edu.bd/</p>
+                </div>
+                <div class="project-actions">
+                    <a href="https://library.uits.edu.bd/" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://library.uits.edu.bd/')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <span class="project-number">04</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #fce4ec, #f8bbd9);">
+                    <i class="fa-solid fa-bullhorn" style="color: #c2185b;"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Notice Board</h3>
+                    <p>https://uits.edu.bd/notices/</p>
+                </div>
+                <div class="project-actions">
+                    <a href="https://uits.edu.bd/notices/" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://uits.edu.bd/notices/')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyLink(url) {
+            navigator.clipboard.writeText(url).then(() => {
+                alert('Link copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+
+</html>

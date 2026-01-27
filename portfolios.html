@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolios - oU1TS Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="category-page">
+        <header class="category-header">
+            <a href="index.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back
+            </a>
+            <div class="category-icon" style="background: linear-gradient(135deg, #fff3e0, #ffe0b2);">
+                <i class="fa-solid fa-user" style="color: #f57c00;"></i>
+            </div>
+            <div class="category-info">
+                <h1>Portfolios</h1>
+                <p>Showcases</p>
+            </div>
+            <a href="#submit" class="add-link-btn">
+                <i class="fa-solid fa-plus"></i>
+                ADD LINK
+            </a>
+        </header>
+
+        <div class="project-list">
+            <div class="project-item">
+                <span class="project-number">01</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9);">
+                    <i class="fa-solid fa-shield-halved" style="color: #388e3c;"></i>
+                </div>
+                <div class="project-info">
+                    <h3>UITS Cyber Security Wing</h3>
+                    <p>https://uitssec.github.io/</p>
+                </div>
+                <div class="project-actions">
+                    <a href="https://uitssec.github.io/" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://uitssec.github.io/')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <span class="project-number">02</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #fce4ec, #f8bbd9);">
+                    <i class="fa-solid fa-droplet" style="color: #c2185b;"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Blood Donation Network - oU1TS</h3>
+                    <p>https://bd-ou1ts.netlify.app/</p>
+                </div>
+                <div class="project-actions">
+                    <a href="https://bd-ou1ts.netlify.app/" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://bd-ou1ts.netlify.app/')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <span class="project-number">03</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb);">
+                    <i class="fa-solid fa-user-tie" style="color: #1976d2;"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Demo Portfolio - Student 1</h3>
+                    <p>Example student portfolio showcase</p>
+                </div>
+                <div class="project-actions">
+                    <a href="#" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('#')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <span class="project-number">04</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #f3e5f5, #e1bee7);">
+                    <i class="fa-solid fa-user-tie" style="color: #7b1fa2;"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Demo Portfolio - Student 2</h3>
+                    <p>Example student portfolio showcase</p>
+                </div>
+                <div class="project-actions">
+                    <a href="#" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('#')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyLink(url) {
+            navigator.clipboard.writeText(url).then(() => {
+                alert('Link copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -12,41 +12,47 @@ const resourceCards = document.querySelectorAll('.resource-card');
 // --- Functions to Open/Close Menu ---
 
 function openMobileMenu() {
-    sidebar.classList.add('active');
-    overlay.classList.add('active');
+    if (sidebar) sidebar.classList.add('active');
+    if (overlay) overlay.classList.add('active');
     // Send button to the back so it can't be clicked when menu is open
-    mobileMenuToggle.style.zIndex = '998'; 
+    if (mobileMenuToggle) mobileMenuToggle.style.zIndex = '998';
 }
 
 function closeMobileMenu() {
-    sidebar.classList.remove('active');
-    overlay.classList.remove('active');
+    if (sidebar) sidebar.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
     // Bring button back to the front
-    mobileMenuToggle.style.zIndex = '1001';
+    if (mobileMenuToggle) mobileMenuToggle.style.zIndex = '1001';
 }
 
 
 // --- Event Listeners ---
 
-// Desktop menu toggle
-menuToggle.addEventListener('click', () => {
-    sidebar.classList.toggle('active');
-    overlay.classList.toggle('active');
-});
+// Desktop menu toggle (if exists)
+if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+        if (sidebar) sidebar.classList.toggle('active');
+        if (overlay) overlay.classList.toggle('active');
+    });
+}
 
 // Mobile menu toggle
-mobileMenuToggle.addEventListener('click', () => {
-    // Check if menu is already open before toggling
-    const isMenuOpen = sidebar.classList.contains('active');
-    if (isMenuOpen) {
-        closeMobileMenu();
-    } else {
-        openMobileMenu();
-    }
-});
+if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', () => {
+        // Check if menu is already open before toggling
+        const isMenuOpen = sidebar && sidebar.classList.contains('active');
+        if (isMenuOpen) {
+            closeMobileMenu();
+        } else {
+            openMobileMenu();
+        }
+    });
+}
 
 // Close menu when clicking the overlay
-overlay.addEventListener('click', closeMobileMenu);
+if (overlay) {
+    overlay.addEventListener('click', closeMobileMenu);
+}
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('.nav-link').forEach(link => {
@@ -64,7 +70,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
                 });
             }
         }
-        
+
         // Always close the mobile menu after a link is clicked
         if (window.innerWidth <= 768) {
             closeMobileMenu();
@@ -72,26 +78,28 @@ document.querySelectorAll('.nav-link').forEach(link => {
     });
 });
 
-// Search functionality (remains the same)
-searchBox.addEventListener('input', (e) => {
-    const searchTerm = e.target.value.toLowerCase();
+// Search functionality (if search box exists)
+if (searchBox) {
+    searchBox.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
 
-    resourceCards.forEach(card => {
-        const title = card.querySelector('h3').textContent.toLowerCase();
-        const description = card.querySelector('p').textContent.toLowerCase();
+        resourceCards.forEach(card => {
+            const title = card.querySelector('h3')?.textContent?.toLowerCase() || '';
+            const description = card.querySelector('p')?.textContent?.toLowerCase() || '';
 
-        if (title.includes(searchTerm) || description.includes(searchTerm)) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
+            if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
     });
-});
+}
 
 // Handle window resize
 window.addEventListener('resize', () => {
     if (window.innerWidth > 768) {
         // Ensure mobile-specific states are cleared on resize to desktop
-        closeMobileMenu(); 
+        closeMobileMenu();
     }
 });

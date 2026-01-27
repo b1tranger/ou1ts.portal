@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community - oU1TS Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="category-page">
+        <header class="category-header">
+            <a href="index.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back
+            </a>
+            <div class="category-icon" style="background: linear-gradient(135deg, #fce4ec, #f8bbd9);">
+                <i class="fa-solid fa-share-nodes" style="color: #c2185b;"></i>
+            </div>
+            <div class="category-info">
+                <h1>Community</h1>
+                <p>Groups & Social</p>
+            </div>
+            <a href="#submit" class="add-link-btn">
+                <i class="fa-solid fa-plus"></i>
+                ADD LINK
+            </a>
+        </header>
+
+        <div class="project-list">
+            <div class="project-item">
+                <span class="project-number">01</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb);">
+                    <i class="fa-brands fa-facebook" style="color: #1976d2;"></i>
+                </div>
+                <div class="project-info">
+                    <h3>oU1TS Facebook Group</h3>
+                    <p>https://facebook.com/groups/1074592960836263/</p>
+                </div>
+                <div class="project-actions">
+                    <a href="https://facebook.com/groups/1074592960836263/" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://facebook.com/groups/1074592960836263/')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <span class="project-number">02</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb);">
+                    <i class="fa-brands fa-telegram" style="color: #0088cc;"></i>
+                </div>
+                <div class="project-info">
+                    <h3>oU1TS Telegram Channel</h3>
+                    <p>https://t.me/s/oUITS_ORnU</p>
+                </div>
+                <div class="project-actions">
+                    <a href="https://t.me/s/oUITS_ORnU" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://t.me/s/oUITS_ORnU')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <span class="project-number">03</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #ede7f6, #d1c4e9);">
+                    <i class="fa-brands fa-discord" style="color: #5865f2;"></i>
+                </div>
+                <div class="project-info">
+                    <h3>oU1TS Discord Server</h3>
+                    <p>https://discord.gg/BdmArz6FHY</p>
+                </div>
+                <div class="project-actions">
+                    <a href="https://discord.gg/BdmArz6FHY" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://discord.gg/BdmArz6FHY')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <span class="project-number">04</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #212121, #424242);">
+                    <i class="fa-brands fa-github" style="color: white;"></i>
+                </div>
+                <div class="project-info">
+                    <h3>oU1TS GitHub Organization</h3>
+                    <p>https://github.com/oU1TS</p>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/oU1TS" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://github.com/oU1TS')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <span class="project-number">05</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #fff3e0, #ffe0b2);">
+                    <i class="fa-brands fa-reddit" style="color: #ff4500;"></i>
+                </div>
+                <div class="project-info">
+                    <h3>oU1TS Subreddit</h3>
+                    <p>https://www.reddit.com/r/oU1TS/</p>
+                </div>
+                <div class="project-actions">
+                    <a href="https://www.reddit.com/r/oU1TS/" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://www.reddit.com/r/oU1TS/')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyLink(url) {
+            navigator.clipboard.writeText(url).then(() => {
+                alert('Link copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+
+</html>

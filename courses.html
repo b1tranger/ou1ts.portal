@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Repositories - oU1TS Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="category-page">
+        <header class="category-header">
+            <a href="index.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back
+            </a>
+            <div class="category-icon" style="background: linear-gradient(135deg, #e0f7fa, #b2ebf2);">
+                <i class="fa-brands fa-github" style="color: #00838f;"></i>
+            </div>
+            <div class="category-info">
+                <h1>Course Repositories</h1>
+                <p>GitHub Repositories</p>
+            </div>
+            <a href="#submit" class="add-link-btn">
+                <i class="fa-solid fa-plus"></i>
+                ADD REPO
+            </a>
+        </header>
+
+        <div class="course-list">
+            <!-- Programming Fundamentals -->
+            <div class="course-dropdown">
+                <button class="course-header" onclick="toggleDropdown(this)">
+                    <span><i class="fa-solid fa-code"></i> Programming Fundamentals (CSE 101)</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="course-content">
+                    <div class="repo-item">
+                        <i class="fa-brands fa-github"></i>
+                        <div class="repo-info">
+                            <a href="https://github.com/example/cse101-lab" target="_blank">cse101-lab</a>
+                            <p>Lab assignments and solutions</p>
+                        </div>
+                    </div>
+                    <div class="repo-item">
+                        <i class="fa-brands fa-github"></i>
+                        <div class="repo-info">
+                            <a href="https://github.com/example/c-basics" target="_blank">c-basics</a>
+                            <p>C programming examples and exercises</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Structures -->
+            <div class="course-dropdown">
+                <button class="course-header" onclick="toggleDropdown(this)">
+                    <span><i class="fa-solid fa-diagram-project"></i> Data Structures (CSE 201)</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="course-content">
+                    <div class="repo-item">
+                        <i class="fa-brands fa-github"></i>
+                        <div class="repo-info">
+                            <a href="https://github.com/example/dsa-implementations"
+                                target="_blank">dsa-implementations</a>
+                            <p>Implementation of common data structures</p>
+                        </div>
+                    </div>
+                    <div class="repo-item">
+                        <i class="fa-brands fa-github"></i>
+                        <div class="repo-info">
+                            <a href="https://github.com/example/leetcode-solutions"
+                                target="_blank">leetcode-solutions</a>
+                            <p>LeetCode problem solutions for practice</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Object Oriented Programming -->
+            <div class="course-dropdown">
+                <button class="course-header" onclick="toggleDropdown(this)">
+                    <span><i class="fa-solid fa-cubes"></i> Object Oriented Programming (CSE 202)</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="course-content">
+                    <div class="repo-item">
+                        <i class="fa-brands fa-github"></i>
+                        <div class="repo-info">
+                            <a href="https://github.com/example/java-oop" target="_blank">java-oop</a>
+                            <p>Java OOP concepts and examples</p>
+                        </div>
+                    </div>
+                    <div class="repo-item">
+                        <i class="fa-brands fa-github"></i>
+                        <div class="repo-info">
+                            <a href="https://github.com/example/oop-projects" target="_blank">oop-projects</a>
+                            <p>Mini projects demonstrating OOP principles</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Database Management -->
+            <div class="course-dropdown">
+                <button class="course-header" onclick="toggleDropdown(this)">
+                    <span><i class="fa-solid fa-database"></i> Database Management (CSE 301)</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="course-content">
+                    <div class="repo-item">
+                        <i class="fa-brands fa-github"></i>
+                        <div class="repo-info">
+                            <a href="https://github.com/example/sql-queries" target="_blank">sql-queries</a>
+                            <p>SQL practice queries and examples</p>
+                        </div>
+                    </div>
+                    <div class="repo-item">
+                        <i class="fa-brands fa-github"></i>
+                        <div class="repo-info">
+                            <a href="https://github.com/example/dbms-project" target="_blank">dbms-project</a>
+                            <p>Database project with ER diagrams</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Web Development -->
+            <div class="course-dropdown">
+                <button class="course-header" onclick="toggleDropdown(this)">
+                    <span><i class="fa-solid fa-globe"></i> Web Development (CSE 310)</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="course-content">
+                    <div class="repo-item">
+                        <i class="fa-brands fa-github"></i>
+                        <div class="repo-info">
+                            <a href="https://github.com/example/html-css-basics" target="_blank">html-css-basics</a>
+                            <p>HTML/CSS fundamentals and exercises</p>
+                        </div>
+                    </div>
+                    <div class="repo-item">
+                        <i class="fa-brands fa-github"></i>
+                        <div class="repo-info">
+                            <a href="https://github.com/example/js-projects" target="_blank">js-projects</a>
+                            <p>JavaScript mini projects</p>
+                        </div>
+                    </div>
+                    <div class="repo-item">
+                        <i class="fa-brands fa-github"></i>
+                        <div class="repo-info">
+                            <a href="https://github.com/example/fullstack-project" target="_blank">fullstack-project</a>
+                            <p>Full-stack web application project</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Algorithm Design -->
+            <div class="course-dropdown">
+                <button class="course-header" onclick="toggleDropdown(this)">
+                    <span><i class="fa-solid fa-chart-line"></i> Algorithm Design (CSE 401)</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="course-content">
+                    <div class="repo-item">
+                        <i class="fa-brands fa-github"></i>
+                        <div class="repo-info">
+                            <a href="https://github.com/example/algorithms" target="_blank">algorithms</a>
+                            <p>Algorithm implementations in C++/Python</p>
+                        </div>
+                    </div>
+                    <div class="repo-item">
+                        <i class="fa-brands fa-github"></i>
+                        <div class="repo-info">
+                            <a href="https://github.com/example/competitive-programming"
+                                target="_blank">competitive-programming</a>
+                            <p>CP solutions and templates</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDropdown(button) {
+            const dropdown = button.parentElement;
+            dropdown.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>

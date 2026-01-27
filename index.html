@@ -4,18 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic Resources Portal</title>
+    <title>oU1TS Portal - Academic Resources Hub</title>
+    <meta name="description"
+        content="The centralized hub for UITS students. Access official portals, share class notes, and discover tools to boost your productivity.">
     <link rel="stylesheet" href="style.css">
 
     <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 </head>
 
 <body>
     <div class="overlay" id="overlay"></div>
 
-    <div class="container" style="max-width: 1200px;margin: auto;margin-bottom: 200px;">
+    <div class="container homepage-container">
         <nav class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <h2>Navigation</h2>
@@ -23,29 +24,17 @@
             </div>
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="#academic" class="nav-link">Academic Projects</a>
+                    <a href="#categories" class="nav-link">Categories</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#FeaturedProjects" class="nav-link">Featured Projects</a>
+                    <a href="#featured" class="nav-link">Featured Projects</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#OtherProjects" class="nav-link">Other Projects</a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a href="#library" class="nav-link">Digital Library</a>
-                </li> -->
-                <!-- <li class="nav-item">
-                    <a href="#study" class="nav-link">Study Materials</a>
-                </li> -->
                 <li class="nav-item">
                     <a href="#about" class="nav-link">About</a>
                 </li>
                 <li class="nav-item">
                     <a href="#platforms" class="nav-link">Socials</a>
                 </li>
-                <!-- <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact Us</a>
-                </li> -->
                 <div class="sidebar-divider"></div>
                 <div style="display: flex;justify-content: center;">
                     <a href="https://github.com/b1tranger/ou1ts.portal/releases" class="open-app-btn" target="_blank">
@@ -58,120 +47,149 @@
 
         <main class="main-content">
 
-
             <!-- Mobile Menu Button -->
             <button class="mobile-menu-button" id="mobileMenuToggle">☰</button>
 
-
-
-            <div class="header">
-                <button class="menu-toggle" id="menuToggle">☰</button>
-                <h1>oU1TS Portal</h1>
-            </div>
-
-            <!-- <div class="search-container">
-                <input type="text" class="search-box" placeholder="Search for academic resources..." id="searchBox">
-            </div> -->
-
-            <div class="category-section" id="academic" style="margin-top: 10vh;">
-                <h2 class="category-title">Academic Projects</h2>
-                <div class="resources-grid">
-                    <div class="resource-card">
-                        <h3>University Companion | <a href="https://github.com/Zirconium001" target="_blank"
-                                style="color: #008cff;text-decoration: none;">04325205101031</a>, <a
-                                href="https://github.com/RabbitJahir" target="_blank"
-                                style="color: #008cff;text-decoration: none;">04325205101006</a></h3>
-                        <p>Class works, Notes and Schedules managed by batch-58 of CSE dept.<br>UITS QBank for Batch 58, CSE. <br><a href="https://echoes-of-the-past.netlify.app/"
-                                style="color: white;">v1.0 - CSE58-A Portal</a><br><a
-                                href="https://uits581a.vercel.app/" style="color: white;">v1.0 - Echoes of the Past</a>
-                        </p>
-                        <a href="https://university-companion.netlify.app/" class="resource-link" target="_blank">Visit
-                            Project
-                            →</a>
-                    </div>
-                    <div class="resource-card">
-                        <h3>b1t Academics | <a href="https://github.com/b1tranger" target="_blank"
-                                style="color: #008cff;text-decoration: none;">0432410005101088</a></h3>
-                        <p>
-                            An initiative for organizing UITS academic
-                            resources. For collaboration refer to <a href="https://t.me/oUITS_ORnU/37"
-                                style="color:white;" target="_blank">THIS</a>
-                            post.</p>
-                        <a href="https://b1tacad.netlify.app/" class="resource-link" target="_blank">Visit Project
-                            →</a>
-                    </div>
-
-                    <div class="resource-card">
-                        <h3>UITS Bot | <a href="https://github.com/AkibReza" target="_blank"
-                                style="color: #008cff;text-decoration: none;">0432220005101061</a></h3>
-                        <p>Interactive academic assistant and resource finder. ( An updated project is in the pipeline)
-                        </p>
-                        <a href="http://akibreza.github.io/uitsBOT" class="resource-link" target="_blank">Visit Project
-                            →</a>
-                    </div>
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    <i class="fa-solid fa-link"></i>
+                    <span>Resource Hub</span>
                 </div>
-            </div>
 
+                <h1 class="hero-title">
+                    oU1TS Portal
+                </h1>
+                <p class="hero-tagline">Your gateway to <span class="highlight">academic excellence</span></p>
 
-            <div class="category-section" id="FeaturedProjects">
+                <p class="hero-description">
+                    The centralized hub for UITS students. Access official portals, share class notes, and discover
+                    tools to boost your productivity.
+                </p>
+
+                <a href="#submit" class="submit-btn">
+                    <i class="fa-solid fa-plus"></i>
+                    Submit Resource
+                </a>
+            </section>
+
+            <!-- Category Cards Grid -->
+            <section class="category-cards-section" id="categories">
+                <div class="category-cards-grid">
+                    <a href="official.html" class="category-card">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb);">
+                            <i class="fa-solid fa-globe" style="color: #1976d2;"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Official UITS</h3>
+                            <p>Portals & Notices</p>
+                        </div>
+                        <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </a>
+
+                    <a href="materials.html" class="category-card">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #f3e5f5, #e1bee7);">
+                            <i class="fa-solid fa-graduation-cap" style="color: #7b1fa2;"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Materials</h3>
+                            <p>Drive & Other links</p>
+                        </div>
+                        <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </a>
+
+                    <a href="tools.html" class="category-card">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9);">
+                            <i class="fa-solid fa-book-open" style="color: #388e3c;"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Tools</h3>
+                            <p>Projects</p>
+                        </div>
+                        <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </a>
+
+                    <a href="community.html" class="category-card">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #fce4ec, #f8bbd9);">
+                            <i class="fa-solid fa-share-nodes" style="color: #c2185b;"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Community</h3>
+                            <p>Groups & Social</p>
+                        </div>
+                        <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </a>
+
+                    <a href="portfolios.html" class="category-card">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #fff3e0, #ffe0b2);">
+                            <i class="fa-solid fa-user" style="color: #f57c00;"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Portfolios</h3>
+                            <p>Showcases</p>
+                        </div>
+                        <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </a>
+
+                    <a href="courses.html" class="category-card">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #e0f7fa, #b2ebf2);">
+                            <i class="fa-brands fa-github" style="color: #00838f;"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Course Repos</h3>
+                            <p>GitHub Repositories</p>
+                        </div>
+                        <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Featured Projects Marquee -->
+            <section class="featured-section" id="featured">
                 <h2 class="category-title">Featured Projects</h2>
-                <div class="resources-grid">
-                    <div class="resource-card">
-                        <img src="https://res.cloudinary.com/djsa2kkyu/image/upload/v1757773769/nobg_UITS_Cyber_Security_Wing_FB_logo_admu5c.png"
-                            width="200px">
-                        <h3>UITS Cyber Security Wing</h3>
-                        <p>The UITS Cyber Security Wing is a student-driven community. Our mission is to cultivate
-                            practical security skills and ethical values through projects, workshops, and competitions.
-                        </p>
-                        <a href="https://uitssec.github.io/" class="resource-link" target="_blank">Visit Project
-                            →</a>
+                <div class="marquee-container">
+                    <div class="marquee-track">
+                        <a href="https://uitssec.github.io/" class="marquee-item" target="_blank">
+                            <img src="https://res.cloudinary.com/djsa2kkyu/image/upload/v1757773769/nobg_UITS_Cyber_Security_Wing_FB_logo_admu5c.png"
+                                alt="UITS Cyber Security Wing">
+                            <span>UITS Cyber Security Wing</span>
+                        </a>
+                        <a href="https://university-companion.netlify.app/" class="marquee-item" target="_blank">
+                            <div class="marquee-placeholder"><i class="fa-solid fa-book"></i></div>
+                            <span>University Companion</span>
+                        </a>
+                        <a href="https://b1tacad.netlify.app/" class="marquee-item" target="_blank">
+                            <div class="marquee-placeholder"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <span>b1t Academics</span>
+                        </a>
+                        <a href="https://bd-ou1ts.netlify.app/" class="marquee-item" target="_blank">
+                            <img src="logo-bd.png" alt="Blood Donation Network">
+                            <span>Blood Donation Network</span>
+                        </a>
+                        <a href="https://b1tsched.netlify.app/" class="marquee-item" target="_blank">
+                            <div class="marquee-placeholder"><i class="fa-solid fa-calendar"></i></div>
+                            <span>b1t Scheduler</span>
+                        </a>
+                        <!-- Duplicate for seamless loop -->
+                        <a href="https://uitssec.github.io/" class="marquee-item" target="_blank">
+                            <img src="https://res.cloudinary.com/djsa2kkyu/image/upload/v1757773769/nobg_UITS_Cyber_Security_Wing_FB_logo_admu5c.png"
+                                alt="UITS Cyber Security Wing">
+                            <span>UITS Cyber Security Wing</span>
+                        </a>
+                        <a href="https://university-companion.netlify.app/" class="marquee-item" target="_blank">
+                            <div class="marquee-placeholder"><i class="fa-solid fa-book"></i></div>
+                            <span>University Companion</span>
+                        </a>
+                        <a href="https://b1tacad.netlify.app/" class="marquee-item" target="_blank">
+                            <div class="marquee-placeholder"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <span>b1t Academics</span>
+                        </a>
                     </div>
-
-                    <!-- <div class="resource-card">
-                        <h3>Citation Generator</h3>
-                        <p>Automated citation tools supporting APA, MLA, Chicago, and other academic formats. Streamline your bibliography and reference management.</p>
-                        <a href="#" class="resource-link">Coming Soon →</a>
-                    </div> -->
                 </div>
-            </div>
+            </section>
 
-
-
-            <div class="category-section" id="OtherProjects">
-                <h2 class="category-title">Other Projects</h2>
-                <div class="resources-grid">
-                    <div class="resource-card">
-                        <img src="logo-bd.png" width="200px"
-                            style="border-radius: 40px;box-shadow: 0 0 10px black;margin-bottom: 10px;">
-                        <h3>Blood Donation network - oU1TS | <a href="https://github.com/b1tranger" target="_blank"
-                                style="color: #008cff;text-decoration: none;">0432410005101088</a></h3>
-                        <p>We intend to create a network of donators, under certain groups where people know each other.
-                            This network will have a list containing contact info and previous donation dates to make
-                            the Blood Reception faster for the requester.</p>
-                        <a href="https://bd-ou1ts.netlify.app/" class="resource-link" target="_blank">Visit Project
-                            →</a>
-                    </div>
-                    <div class="resource-card">
-
-                        <h3>b1t Scheduler | <a href="https://github.com/b1tranger" target="_blank"
-                                style="color: #008cff;text-decoration: none;">0432410005101088</a></h3>
-                        <p>An academic scheduling platform for department-wise class routines, the academic calendar,
-                            faculty information, and a simple note-taker. Users submit academic tasks via a form, and
-                            manage them using Google Sheet.</p>
-                        <a href="https://b1tsched.netlify.app/" class="resource-link" target="_blank">Visit Project
-                            →</a>
-                    </div>
-
-                    <!-- <div class="resource-card">
-                        <h3>Citation Generator</h3>
-                        <p>Automated citation tools supporting APA, MLA, Chicago, and other academic formats. Streamline your bibliography and reference management.</p>
-                        <a href="#" class="resource-link">Coming Soon →</a>
-                    </div> -->
-                </div>
-            </div>
-
-
-
+            <!-- About Section -->
             <div class="category-section" id="about">
                 <h2 class="category-title">About This Portal</h2>
                 <div class="resources-grid">
@@ -190,21 +208,16 @@
                             Telegram/Discord) if you have any feedback or just want to talk about
                             doing projects together.</p>
 
-                        <p style="margin-top: 1rem;">JazakAllahu khair, o wanderer of life!
+                        <p style="margin-top: 1rem;">Jazakallahu khair, o wanderer of life!
                         </p>
-
-
-
-
-
                     </div>
                 </div>
             </div>
 
-
+            <!-- Socials Section -->
             <div class="category-section" id="platforms">
                 <h2 class="category-title">Socials</h2>
-                <div class="resources-grid" style="grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));">
+                <div class="resources-grid socials-grid">
 
                     <a href="https://facebook.com/groups/1074592960836263/" target="_blank">
                         <p class="resource-card" style="text-align: center;align-items: center;"><i
@@ -228,11 +241,6 @@
                         <p class="resource-card" style="text-align: center;align-items: center;"><i
                                 class="fa-brands fa-reddit" style="color: white;font-size: 2rem;"></i></p>
                     </a>
-
-                    <!-- <a href="" target="_blank">
-                        <p class="resource-card" style="text-align: center;align-items: center;"><i
-                                class="" style="color: white;font-size: 2rem;"></i></p>
-                    </a> -->
                 </div>
             </div>
 
@@ -242,8 +250,6 @@
                     style="max-width: 300px;width: 50vw;margin: auto;border-radius:15px;display: flex;margin-top: 3rem;">
 
             </div>
-
-
 
         </main>
     </div>
