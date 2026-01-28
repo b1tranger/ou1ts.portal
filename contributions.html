@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contributors - oU1TS Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .contributors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem 0;
+        }
+
+        .contributor-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .contributor-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(100, 181, 246, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .contributor-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #64b5f6, #42a5f5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .contributor-name {
+            color: #e0e6ed;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .contributor-id {
+            color: #a0a0a0;
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .contributor-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-value {
+            color: #64b5f6;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            color: #a0a0a0;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: #64b5f6;
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-state h3 {
+            color: #e0e6ed;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .empty-state p {
+            color: #a0a0a0;
+            font-size: 1rem;
+            max-width: 400px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.6;
+        }
+
+        .submit-resource-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(45deg, #64b5f6, #42a5f5);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .submit-resource-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(100, 181, 246, 0.4);
+        }
+
+        .page-description {
+            background: rgba(100, 181, 246, 0.1);
+            border: 1px solid rgba(100, 181, 246, 0.2);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .page-description i {
+            color: #64b5f6;
+            font-size: 1.5rem;
+        }
+
+        .page-description p {
+            color: #e0e6ed;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .reference-footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .reference-footer p {
+            color: #a0a0a0;
+            font-size: 0.85rem;
+        }
+
+        .reference-footer a {
+            color: #64b5f6;
+            text-decoration: none;
+        }
+
+        .reference-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="category-page">
+        <header class="category-header">
+            <a href="index.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back
+            </a>
+            <div class="category-icon" style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9);">
+                <i class="fa-solid fa-users" style="color: #388e3c;"></i>
+            </div>
+            <div class="category-info">
+                <h1>Contributors</h1>
+                <p>Community members who have shared resources</p>
+            </div>
+            <a href="https://forms.gle/UR1HSavWJYdPBPnC8" target="_blank" class="add-link-btn">
+                <i class="fa-solid fa-plus"></i>
+                SUBMIT RESOURCE
+            </a>
+        </header>
+
+        <div class="project-list">
+            <div class="page-description">
+                <i class="fa-solid fa-circle-info"></i>
+                <p>This page recognizes the amazing community members who have contributed resources to the oU1TS Portal through the "Submit Resource" button. Your contributions help fellow students succeed!</p>
+            </div>
+
+            <!-- Empty State - Show when no contributors yet -->
+            <div class="empty-state">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+                <h3>Be the First Contributor!</h3>
+                <p>No contributions yet. Submit a resource link through our form and your name will appear here as a contributor to the oU1TS community.</p>
+                <a href="https://forms.gle/UR1HSavWJYdPBPnC8" target="_blank" class="submit-resource-btn">
+                    <i class="fa-solid fa-plus" style="font-size: 2rem;margin-bottom: -3px;color: rgba(255, 255, 255, 0.623);"></i>
+                    Submit Resource
+                </a>
+            </div>
+
+            <!-- Contributors Grid - Uncomment and populate when there are contributors
+            <div class="contributors-grid">
+                <div class="contributor-card">
+                    <div class="contributor-avatar">A</div>
+                    <div class="contributor-name">Contributor Name</div>
+                    <div class="contributor-id">@username</div>
+                    <div class="contributor-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">5</span>
+                            <span class="stat-label">Resources</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            -->
+
+            <div class="reference-footer">
+                <p>Page design inspired by <a href="https://diuqbank.com/contributors/" target="_blank">https://diuqbank.com/contributors/</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyLink(url) {
+            navigator.clipboard.writeText(url).then(() => {
+                alert('Link copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+
+</html>
