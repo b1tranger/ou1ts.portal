@@ -107,7 +107,14 @@ A dynamic page that fetches contributor data from Google Sheets in real-time.
 **Modal Features:**
 - Click card to open
 - Click ✕, overlay, or press Escape to close
-- Shows Project Title, Project Type (badge), and Project Link (clickable)
+- **Contact Information Section:**
+  - Email (clickable mailto: link with envelope icon)
+  - Social Links (clickable if URL, with link icon)
+  - Fallback message if no contact info provided
+- **Resources Section:**
+  - Project Title
+  - Project Type (as badge)
+  - Project Link (clickable, opens in new tab)
 
 ---
 
@@ -207,10 +214,10 @@ The Contributors page fetches data dynamically from a Google Sheet linked to the
 |-------|-------------|----------|
 | 0 | Timestamp | Not displayed |
 | 1 | Email Address | Not displayed |
-| 2 | Student Education Email | Displayed on contributor card |
+| 2 | Student Education Email | Displayed on contributor card & modal |
 | 3 | What is this submission for? | Not displayed |
 | 4 | Your Name | Contributor name (grouping key) |
-| 5 | Contacts and Social Links | Stored but not currently displayed |
+| 5 | Contacts and Social Links | Displayed in modal contact section |
 | 6 | Project Title | Shown in modal popup |
 | 7 | Project Link | Clickable link in modal |
 | 8 | Project Type | Badge in modal popup |
@@ -286,6 +293,15 @@ const SHEET_ID = 'your-new-sheet-id-here';
 - Modal can be closed via ✕ button, clicking overlay, or pressing Escape
 - Improved data handling to store all submissions per contributor
 - Updated column mapping to include project details (columns 6, 7, 8)
+
+### v2.4 - Modal Contact Information
+- Modal now displays Contact Information section with:
+  - Student Education Email (clickable mailto: link)
+  - Social Links (clickable if URL format detected)
+- Department and Batch shown as subtitle in modal header
+- Added styled contact info card with icons
+- Fallback message when no contact information is provided
+- Resources section now has dedicated header
 
 ---
 
