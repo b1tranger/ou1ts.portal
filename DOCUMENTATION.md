@@ -13,6 +13,7 @@ ou1ts.portal/
 ├── community.html      # Community - Groups & Social
 ├── portfolios.html     # Portfolios - Showcases
 ├── courses.html        # Course Repositories - GitHub repos per course
+├── contributions.html  # Contributors - Resource submitters recognition
 ├── style.css           # Main stylesheet
 ├── script.js           # JavaScript functionality
 └── DOCUMENTATION.md    # This file
@@ -40,6 +41,7 @@ Each category page includes:
 | `community.html` | Community | Social links & groups |
 | `portfolios.html` | Portfolios | Student showcases |
 | `courses.html` | Course Repos | Dropdown menus with GitHub repos |
+| `contributions.html` | Contributors | Recognition for resource submitters |
 
 ## Customization
 
@@ -70,3 +72,41 @@ Update the Google Form URL in the `href` attribute of `.submit-btn` elements.
 - Added featured projects marquee
 - Added Course Repositories with dropdown menus
 - Preserved existing dark theme styling
+
+### v2.1 - Contributors Page
+- Added `contributions.html` page to recognize resource submitters
+- Added Contributors category card to homepage under "Official UITS" with divider
+- Page design inspired by https://diuqbank.com/contributors/
+
+### v2.2 - Google Sheets Integration
+- Contributors page now fetches data dynamically from Google Sheets
+- Auto-updates when new form submissions are added (on page refresh)
+- Groups contributors by name and displays submission count
+- Shows Department and Batch info from form responses
+- Includes loading, empty, and error states
+- **Google Sheet ID**: `1oQ5Mkavjm62UGZwNjM-52yvKppWZHfX-Qpq6jtEVIOY`
+
+## Google Sheets Setup
+
+The Contributors page (`contributions.html`) pulls data from a Google Sheet linked to the submission form.
+
+### Publishing the Sheet
+1. Open the Google Sheet
+2. Go to **File → Share → Publish to web**
+3. Select **"Entire Document"** and click **Publish**
+
+### Column Mapping (0-indexed)
+| Index | Column Name |
+|-------|-------------|
+| 4 | Your Name |
+| 5 | Contacts and Social Links |
+| 9 | Department |
+| 10 | Batch |
+
+To modify which columns are used, edit the constants in `contributions.html`:
+```javascript
+const COL_NAME = 4;
+const COL_DEPARTMENT = 9;
+const COL_BATCH = 10;
+const COL_SOCIAL = 5;
+```

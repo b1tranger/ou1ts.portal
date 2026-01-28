@@ -191,7 +191,7 @@
                 <h1>Contributors</h1>
                 <p>Community members who have shared resources</p>
             </div>
-            <a href="https://forms.gle/UR1HSavWJYdPBPnC8" target="_blank" class="add-link-btn">
+            <a href="https://forms.gle/UR1HSavWJYdPBPnC8" target="_blank" class="add-link-btn" style="width: fit-content;">
                 <i class="fa-solid fa-plus"></i>
                 SUBMIT RESOURCE
             </a>
@@ -203,32 +203,33 @@
                 <p>This page recognizes the amazing community members who have contributed resources to the oU1TS Portal through the "Submit Resource" button. Your contributions help fellow students succeed!</p>
             </div>
 
+            <!-- Loading State -->
+            <div id="loading-state" class="empty-state">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <h3>Loading Contributors...</h3>
+                <p>Fetching data from the community submissions.</p>
+            </div>
+
             <!-- Empty State - Show when no contributors yet -->
-            <div class="empty-state">
+            <div id="empty-state" class="empty-state" style="display: none;">
                 <i class="fa-solid fa-hand-holding-heart"></i>
                 <h3>Be the First Contributor!</h3>
                 <p>No contributions yet. Submit a resource link through our form and your name will appear here as a contributor to the oU1TS community.</p>
-                <a href="https://forms.gle/UR1HSavWJYdPBPnC8" target="_blank" class="submit-resource-btn">
+                <a href="https://forms.gle/UR1HSavWJYdPBPnC8" target="_blank" class="submit-resource-btn" style="width: fit-content;margin: auto;">
                     <i class="fa-solid fa-plus" style="font-size: 2rem;margin-bottom: -3px;color: rgba(255, 255, 255, 0.623);"></i>
                     Submit Resource
                 </a>
             </div>
 
-            <!-- Contributors Grid - Uncomment and populate when there are contributors
-            <div class="contributors-grid">
-                <div class="contributor-card">
-                    <div class="contributor-avatar">A</div>
-                    <div class="contributor-name">Contributor Name</div>
-                    <div class="contributor-id">@username</div>
-                    <div class="contributor-stats">
-                        <div class="stat-item">
-                            <span class="stat-value">5</span>
-                            <span class="stat-label">Resources</span>
-                        </div>
-                    </div>
-                </div>
+            <!-- Error State -->
+            <div id="error-state" class="empty-state" style="display: none;">
+                <i class="fa-solid fa-exclamation-triangle"></i>
+                <h3>Unable to Load Contributors</h3>
+                <p>There was an error fetching the contributors list. Please try again later.</p>
             </div>
-            -->
+
+            <!-- Contributors Grid - Populated dynamically -->
+            <div id="contributors-grid" class="contributors-grid" style="display: none;"></div>
 
             <div class="reference-footer">
                 <p>Page design inspired by <a href="https://diuqbank.com/contributors/" target="_blank">https://diuqbank.com/contributors/</a></p>
@@ -237,11 +238,174 @@
     </div>
 
     <script>
-        function copyLink(url) {
-            navigator.clipboard.writeText(url).then(() => {
-                alert('Link copied to clipboard!');
-            });
+        // Google Sheet Configuration
+        const SHEET_ID = '1oQ5Mkavjm62UGZwNjM-52yvKppWZHfX-Qpq6jtEVIOY';
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+
+        // Column indices (0-based) - based on your form columns
+        const COL_NAME = 4;        // "Your Name"
+        const COL_DEPARTMENT = 9;  // "Department"
+        const COL_BATCH = 10;      // "Batch"
+        const COL_SOCIAL = 5;      // "Contacts and Social Links"
+
+        // DOM Elements
+        const loadingState = document.getElementById('loading-state');
+        const emptyState = document.getElementById('empty-state');
+        const errorState = document.getElementById('error-state');
+        const contributorsGrid = document.getElementById('contributors-grid');
+
+        // Fetch and render contributors
+        async function fetchContributors() {
+            try {
+                const response = await fetch(SHEET_URL);
+                
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                
+                const text = await response.text();
+                
+                // Check if the response contains valid data
+                if (!text.includes('google.visualization.Query.setResponse')) {
+                    throw new Error('Invalid response format - sheet may not be published');
+                }
+                
+                // Parse the JSONP response (Google returns it wrapped in a function call)
+                const jsonString = text.substring(text.indexOf('(') + 1, text.lastIndexOf(')'));
+                const data = JSON.parse(jsonString);
+                
+                // Check for errors in response
+                if (data.status === 'error') {
+                    throw new Error(data.errors?.[0]?.message || 'Sheet error');
+                }
+                
+                if (!data.table || !data.table.rows || data.table.rows.length === 0) {
+                    showEmptyState();
+                    return;
+                }
+
+                // Group contributions by name
+                const contributorMap = new Map();
+                
+                data.table.rows.forEach(row => {
+                    if (!row.c) return;
+                    
+                    // Get name value safely
+                    const nameCell = row.c[COL_NAME];
+                    if (!nameCell || !nameCell.v) return;
+                    
+                    const name = String(nameCell.v).trim();
+                    if (!name || name === '' || name.toLowerCase() === 'your name') return; // Skip header or empty
+                    
+                    const department = row.c[COL_DEPARTMENT]?.v ? String(row.c[COL_DEPARTMENT].v) : '';
+                    const batch = row.c[COL_BATCH]?.v ? String(row.c[COL_BATCH].v) : '';
+                    const social = row.c[COL_SOCIAL]?.v ? String(row.c[COL_SOCIAL].v) : '';
+                    
+                    if (contributorMap.has(name)) {
+                        contributorMap.get(name).count++;
+                    } else {
+                        contributorMap.set(name, {
+                            name: name,
+                            department: department,
+                            batch: batch,
+                            social: social,
+                            count: 1
+                        });
+                    }
+                });
+
+                if (contributorMap.size === 0) {
+                    showEmptyState();
+                    return;
+                }
+
+                // Sort by contribution count (descending)
+                const contributors = Array.from(contributorMap.values())
+                    .sort((a, b) => b.count - a.count);
+
+                renderContributors(contributors);
+                
+            } catch (error) {
+                console.error('Error fetching contributors:', error);
+                showErrorState();
+            }
         }
+
+        function renderContributors(contributors) {
+            loadingState.style.display = 'none';
+            emptyState.style.display = 'none';
+            errorState.style.display = 'none';
+            contributorsGrid.style.display = 'grid';
+
+            contributorsGrid.innerHTML = contributors.map(contributor => {
+                const initials = contributor.name
+                    .split(' ')
+                    .filter(word => word.length > 0)
+                    .map(word => word[0])
+                    .join('')
+                    .substring(0, 2)
+                    .toUpperCase() || '?';
+                
+                const subtitle = [contributor.department, contributor.batch]
+                    .filter(Boolean)
+                    .join(' • ') || 'UITS Student';
+
+                // Generate a consistent color based on name
+                const colors = [
+                    ['#64b5f6', '#42a5f5'], // Blue
+                    ['#81c784', '#66bb6a'], // Green
+                    ['#ffb74d', '#ffa726'], // Orange
+                    ['#ba68c8', '#ab47bc'], // Purple
+                    ['#4dd0e1', '#26c6da'], // Cyan
+                    ['#f06292', '#ec407a'], // Pink
+                    ['#aed581', '#9ccc65'], // Light Green
+                    ['#ff8a65', '#ff7043'], // Deep Orange
+                ];
+                const colorIndex = contributor.name.length % colors.length;
+                const [color1, color2] = colors[colorIndex];
+
+                return `
+                    <div class="contributor-card">
+                        <div class="contributor-avatar" style="background: linear-gradient(135deg, ${color1}, ${color2});">
+                            ${initials}
+                        </div>
+                        <div class="contributor-name">${escapeHtml(contributor.name)}</div>
+                        <div class="contributor-id">${escapeHtml(subtitle)}</div>
+                        <div class="contributor-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">${contributor.count}</span>
+                                <span class="stat-label">${contributor.count === 1 ? 'Resource' : 'Resources'}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showEmptyState() {
+            loadingState.style.display = 'none';
+            emptyState.style.display = 'flex';
+            emptyState.style.flexDirection = 'column';
+            errorState.style.display = 'none';
+            contributorsGrid.style.display = 'none';
+        }
+
+        function showErrorState() {
+            loadingState.style.display = 'none';
+            emptyState.style.display = 'none';
+            errorState.style.display = 'flex';
+            errorState.style.flexDirection = 'column';
+            contributorsGrid.style.display = 'none';
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Initialize
+        fetchContributors();
     </script>
 </body>
 
