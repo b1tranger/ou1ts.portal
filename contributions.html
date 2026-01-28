@@ -174,6 +174,173 @@
         .reference-footer a:hover {
             text-decoration: underline;
         }
+
+        .contributor-email {
+            color: #64b5f6;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            word-break: break-all;
+        }
+
+        .contributor-card {
+            cursor: pointer;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            color: #e0e6ed;
+            font-size: 1.25rem;
+            margin: 0;
+        }
+
+        .modal-header .contributor-info-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .modal-header .mini-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #e0e6ed;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .resource-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .resource-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(100, 181, 246, 0.3);
+        }
+
+        .resource-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .resource-title {
+            color: #e0e6ed;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-type {
+            display: inline-block;
+            background: rgba(100, 181, 246, 0.2);
+            color: #64b5f6;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            margin-bottom: 0.75rem;
+        }
+
+        .resource-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ffffff;
+            text-shadow: 0 0 4px black;
+            font-size: 0.85rem;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .resource-link:hover {
+            color: #000000;
+            text-shadow: 0 0 0 black;
+
+        }
+
+        .resource-link i {
+            flex-shrink: 0;
+        }
     </style>
 </head>
 
@@ -231,6 +398,27 @@
             <!-- Contributors Grid - Populated dynamically -->
             <div id="contributors-grid" class="contributors-grid" style="display: none;"></div>
 
+            <!-- Modal for showing resources -->
+            <div id="resources-modal" class="modal-overlay">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="contributor-info-header">
+                            <div id="modal-avatar" class="mini-avatar"></div>
+                            <div>
+                                <h2 id="modal-name">Contributor Name</h2>
+                                <span id="modal-email" style="color: #64b5f6; font-size: 0.85rem;"></span>
+                            </div>
+                        </div>
+                        <button class="modal-close" onclick="closeModal()">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modal-resources">
+                        <!-- Resources populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
             <div class="reference-footer">
                 <p>Page design inspired by <a href="https://diuqbank.com/contributors/" target="_blank">https://diuqbank.com/contributors/</a></p>
             </div>
@@ -243,10 +431,17 @@
         const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
 
         // Column indices (0-based) - based on your form columns
+        const COL_EMAIL = 2;       // "Student Education Email"
         const COL_NAME = 4;        // "Your Name"
+        const COL_SOCIAL = 5;      // "Contacts and Social Links"
+        const COL_PROJECT_TITLE = 6;  // "Project Title"
+        const COL_PROJECT_LINK = 7;   // "Project Link"
+        const COL_PROJECT_TYPE = 8;   // "Project Type"
         const COL_DEPARTMENT = 9;  // "Department"
         const COL_BATCH = 10;      // "Batch"
-        const COL_SOCIAL = 5;      // "Contacts and Social Links"
+
+        // Store all contributors data for modal
+        let allContributorsData = new Map();
 
         // DOM Elements
         const loadingState = document.getElementById('loading-state');
@@ -297,22 +492,35 @@
                     const name = String(nameCell.v).trim();
                     if (!name || name === '' || name.toLowerCase() === 'your name') return; // Skip header or empty
                     
+                    const email = row.c[COL_EMAIL]?.v ? String(row.c[COL_EMAIL].v) : '';
                     const department = row.c[COL_DEPARTMENT]?.v ? String(row.c[COL_DEPARTMENT].v) : '';
                     const batch = row.c[COL_BATCH]?.v ? String(row.c[COL_BATCH].v) : '';
                     const social = row.c[COL_SOCIAL]?.v ? String(row.c[COL_SOCIAL].v) : '';
+                    const projectTitle = row.c[COL_PROJECT_TITLE]?.v ? String(row.c[COL_PROJECT_TITLE].v) : '';
+                    const projectLink = row.c[COL_PROJECT_LINK]?.v ? String(row.c[COL_PROJECT_LINK].v) : '';
+                    const projectType = row.c[COL_PROJECT_TYPE]?.v ? String(row.c[COL_PROJECT_TYPE].v) : '';
+                    
+                    const resource = { title: projectTitle, link: projectLink, type: projectType };
                     
                     if (contributorMap.has(name)) {
-                        contributorMap.get(name).count++;
+                        const contributor = contributorMap.get(name);
+                        contributor.count++;
+                        contributor.resources.push(resource);
                     } else {
                         contributorMap.set(name, {
                             name: name,
+                            email: email,
                             department: department,
                             batch: batch,
                             social: social,
-                            count: 1
+                            count: 1,
+                            resources: [resource]
                         });
                     }
                 });
+
+                // Store globally for modal access
+                allContributorsData = contributorMap;
 
                 if (contributorMap.size === 0) {
                     showEmptyState();
@@ -364,12 +572,16 @@
                 const colorIndex = contributor.name.length % colors.length;
                 const [color1, color2] = colors[colorIndex];
 
+                const emailDisplay = contributor.email ? contributor.email : '';
+
                 return `
-                    <div class="contributor-card">
+                    <div class="contributor-card" onclick="openModal('${escapeHtml(contributor.name).replace(/'/g, "\\'")}')"
+                         data-color1="${color1}" data-color2="${color2}">
                         <div class="contributor-avatar" style="background: linear-gradient(135deg, ${color1}, ${color2});">
                             ${initials}
                         </div>
                         <div class="contributor-name">${escapeHtml(contributor.name)}</div>
+                        ${emailDisplay ? `<div class="contributor-email">${escapeHtml(emailDisplay)}</div>` : ''}
                         <div class="contributor-id">${escapeHtml(subtitle)}</div>
                         <div class="contributor-stats">
                             <div class="stat-item">
@@ -403,6 +615,86 @@
             div.textContent = text;
             return div.innerHTML;
         }
+
+        // Modal functions
+        function openModal(contributorName) {
+            const contributor = allContributorsData.get(contributorName);
+            if (!contributor) return;
+
+            const modal = document.getElementById('resources-modal');
+            const modalName = document.getElementById('modal-name');
+            const modalEmail = document.getElementById('modal-email');
+            const modalAvatar = document.getElementById('modal-avatar');
+            const modalResources = document.getElementById('modal-resources');
+
+            // Set contributor info
+            modalName.textContent = contributor.name;
+            modalEmail.textContent = contributor.email || '';
+
+            // Set avatar
+            const initials = contributor.name
+                .split(' ')
+                .filter(word => word.length > 0)
+                .map(word => word[0])
+                .join('')
+                .substring(0, 2)
+                .toUpperCase() || '?';
+
+            const colors = [
+                ['#64b5f6', '#42a5f5'],
+                ['#81c784', '#66bb6a'],
+                ['#ffb74d', '#ffa726'],
+                ['#ba68c8', '#ab47bc'],
+                ['#4dd0e1', '#26c6da'],
+                ['#f06292', '#ec407a'],
+                ['#aed581', '#9ccc65'],
+                ['#ff8a65', '#ff7043'],
+            ];
+            const colorIndex = contributor.name.length % colors.length;
+            const [color1, color2] = colors[colorIndex];
+
+            modalAvatar.textContent = initials;
+            modalAvatar.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+
+            // Render resources
+            modalResources.innerHTML = contributor.resources
+                .filter(r => r.title || r.link) // Only show resources with title or link
+                .map(resource => `
+                    <div class="resource-item">
+                        <div class="resource-title">${escapeHtml(resource.title || 'Untitled Resource')}</div>
+                        ${resource.type ? `<span class="resource-type">${escapeHtml(resource.type)}</span>` : ''}
+                        ${resource.link ? `
+                            <a href="${escapeHtml(resource.link)}" target="_blank" class="resource-link">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                ${escapeHtml(resource.link)}
+                            </a>
+                        ` : ''}
+                    </div>
+                `).join('') || '<p style="color: #a0a0a0; text-align: center;">No resource details available.</p>';
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('resources-modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on overlay click
+        document.getElementById('resources-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
 
         // Initialize
         fetchContributors();
