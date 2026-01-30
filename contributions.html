@@ -319,6 +319,13 @@
             padding: 0.25rem 0.75rem;
             border-radius: 20px;
             margin-bottom: 0.75rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        a.resource-type:hover {
+            background: rgba(100, 181, 246, 0.4);
+            color: #fff;
         }
 
         .resource-link {
@@ -680,6 +687,30 @@
             return div.innerHTML;
         }
 
+        // Resource type to page URL mapping
+        const resourceTypePages = {
+            'Tools': 'tools.html',
+            'Course Repositories': 'courses.html',
+            'Materials': 'materials.html',
+            'Community': 'community.html',
+            'Official': 'official.html',
+            'Portfolio': 'portfolios.html',
+            'Portfolios': 'portfolios.html'
+        };
+
+        // Get page URL for a resource type
+        function getResourceTypePage(type) {
+            if (!type) return null;
+            // Check exact match first
+            if (resourceTypePages[type]) return resourceTypePages[type];
+            // Check case-insensitive match
+            const lowerType = type.toLowerCase();
+            for (const [key, value] of Object.entries(resourceTypePages)) {
+                if (key.toLowerCase() === lowerType) return value;
+            }
+            return null;
+        }
+
         // Modal functions
         function openModal(contributorName) {
             const contributor = allContributorsData.get(contributorName);
@@ -761,18 +792,27 @@
             // Render resources
             modalResources.innerHTML = contributor.resources
                 .filter(r => r.title || r.link) // Only show resources with title or link
-                .map(resource => `
-                    <div class="resource-item">
-                        <div class="resource-title">${escapeHtml(resource.title || 'Untitled Resource')}</div>
-                        ${resource.type ? `<span class="resource-type">${escapeHtml(resource.type)}</span>` : ''}
-                        ${resource.link ? `
-                            <a href="${escapeHtml(resource.link)}" target="_blank" class="resource-link">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                                ${escapeHtml(resource.link)}
-                            </a>
-                        ` : ''}
-                    </div>
-                `).join('') || '<p style="color: #a0a0a0; text-align: center;">No resource details available.</p>';
+                .map(resource => {
+                    const typePage = getResourceTypePage(resource.type);
+                    const typeHtml = resource.type 
+                        ? (typePage 
+                            ? `<a href="${typePage}" class="resource-type">${escapeHtml(resource.type)}</a>`
+                            : `<span class="resource-type">${escapeHtml(resource.type)}</span>`)
+                        : '';
+                    
+                    return `
+                        <div class="resource-item">
+                            <div class="resource-title">${escapeHtml(resource.title || 'Untitled Resource')}</div>
+                            ${typeHtml}
+                            ${resource.link ? `
+                                <a href="${escapeHtml(resource.link)}" target="_blank" class="resource-link">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                    ${escapeHtml(resource.link)}
+                                </a>
+                            ` : ''}
+                        </div>
+                    `;
+                }).join('') || '<p style="color: #a0a0a0; text-align: center;">No resource details available.</p>';
 
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';

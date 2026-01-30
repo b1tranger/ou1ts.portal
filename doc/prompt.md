@@ -396,3 +396,73 @@ Updated DOCUMENTATION.md with comprehensive details including:
 - **Credits section** at the bottom
 
 Made changes.
+
+---
+
+User: I want to add another feature to the card pop-up windows for submissions/contributions. Observer the provided image. I need to:
+- The contribution or resource type should be a link to the corresponding page. For example: in the image, it shows that the submitted resource type is "Tools". Therefore, the text should be a clickable link to the page "tools.html"
+
+GitHub Copilot: Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/contributions.html#1-1), lines 1 to 100
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/script.js)
+
+Let me continue reading the script.js file to find the popup implementation and more of the contributions.html file: 
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/script.js#105-105), lines 105 to 105
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/contributions.html#100-100), lines 100 to 350
+
+Let me continue reading to find the JavaScript code that generates the popup and modal: 
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/contributions.html#350-350), lines 350 to 600
+
+Let me continue reading to find where the modal resources are populated: 
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/contributions.html#600-600), lines 600 to 807
+
+Now I understand the code structure. The resource type is rendered in the modal around line 755. I need to:
+
+1. Create a mapping from resource type to the corresponding page URL
+2. Update the resource type span to be a clickable link
+
+I also need to add some CSS styling for the link. Let me implement this: 
+
+Using "Replace String in File"
+
+
+```
+
+```
+Now let me add the type-to-page mapping and update the resource rendering logic: 
+
+Using "Replace String in File"
+
+
+```
+
+```
+Now let me update the resource rendering to make the type a clickable link: 
+
+Using "Replace String in File"
+
+
+```
+
+```
+The changes have been implemented. Here's a summary of what was done:
+
+1. **Added hover styling for the resource type link** - The `.resource-type` class now includes `text-decoration: none` and `transition`, plus a new `a.resource-type:hover` rule that changes the background and text color on hover.
+
+2. **Created a resource type to page URL mapping** - Added a `resourceTypePages` object that maps resource types like "Tools", "Courses", "Materials", "Community", "Official", "Portfolio/Portfolios" to their corresponding HTML pages.
+
+3. **Added a helper function `getResourceTypePage()`** - This function looks up the page URL for a given resource type, supporting both exact and case-insensitive matching.
+
+4. **Updated the resource rendering logic** - The resource type badge is now rendered as a clickable `<a>` link when a matching page exists, or falls back to a plain `<span>` if no page mapping is found.
+
+Now when users click on a resource type like "Tools" in the popup, it will navigate them to tools.html.
+
+Made changes.
+
+User: update the documentation at "doc/DOCUMENTATION.md"
+
+GitHub Copilot: 

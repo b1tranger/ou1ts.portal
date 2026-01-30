@@ -113,7 +113,7 @@ A dynamic page that fetches contributor data from Google Sheets in real-time.
   - Fallback message if no contact info provided
 - **Resources Section:**
   - Project Title
-  - Project Type (as badge)
+  - Project Type (as clickable badge linking to corresponding category page)
   - Project Link (clickable, opens in new tab)
 
 ---
@@ -302,6 +302,19 @@ const SHEET_ID = 'your-new-sheet-id-here';
 - Added styled contact info card with icons
 - Fallback message when no contact information is provided
 - Resources section now has dedicated header
+
+### v2.5 - Resource Type Linking
+- Resource type badges in modal popup are now clickable links
+- Clicking a resource type (e.g., "Tools") navigates to the corresponding category page (e.g., `tools.html`)
+- Supported resource types with page mappings:
+  - Tools → `tools.html`
+  - Courses → `courses.html`
+  - Materials → `materials.html`
+  - Community → `community.html`
+  - Official → `official.html`
+  - Portfolio/Portfolios → `portfolios.html`
+- Added hover effect styling for resource type links
+- Falls back to non-clickable badge if resource type doesn't match any category
 
 ---
 
