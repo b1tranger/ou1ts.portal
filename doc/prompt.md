@@ -466,3 +466,50 @@ Made changes.
 User: update the documentation at "doc/DOCUMENTATION.md"
 
 GitHub Copilot: 
+
+---
+
+User: create a "guidance.html" similar to the attached files. I have added the "Resource type to page URL mapping" for it in "contributions.html"
+
+GitHub Copilot: Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/contributions.html#1-1), lines 1 to 150
+
+Searched for text `guidance` (`**/contributions.html`), 2 results
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/contributions.html#680-680), lines 680 to 750
+
+Now I understand the structure. The "Guidance" category is mapped to "guidance.html". Let me look at the index.html to see if there's a category card for "Guidance" to understand what icon and colors to use: 
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/index.html#1-1), lines 1 to 150
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/index.html#150-150), lines 150 to 230
+
+Now I have a good understanding of the structure. Looking at the existing category pages and the index.html, I notice that "Guidance" doesn't have a card in the index.html yet, but it's mapped in the contributions.html. I'll create a guidance.html file following the same structure as other category pages like tools.html, materials.html, etc.
+
+For the Guidance page, I'll use a suitable icon (lightbulb or compass for guidance) and appropriate colors. Let me create the file: 
+
+Created [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/guidance.html)
+
+I've created guidance.html following the same structure as the other category pages (tools.html, materials.html, community.html, etc.). 
+
+The page includes:
+- Same header structure with back button, category icon, title, and "ADD LINK" button
+- Light blue gradient theme (`#e1f5fe` to `#b3e5fc`) with a lightbulb icon (`#0288d1`) to represent guidance
+- Title: **Guidance** with subtitle **Tips & Tutorials**
+- Empty `project-list` container with a commented template for adding guidance resources
+- The `copyLink()` function for copying URLs
+
+The page is ready to be populated with guidance resources as they are submitted through the form.
+
+Made changes.
+
+User: could you add the card that will be linked with "guidance.html" in "index,html"?
+
+GitHub Copilot: Using "Replace String in File"
+
+
+```
+
+```
+Done! I've added the **Guidance** card to index.html right after the "Official UITS" card and before the divider. The card uses the same light blue theme as the guidance.html page with a lightbulb icon.
+
+Made changes.

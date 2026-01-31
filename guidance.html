@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guidance - oU1TS Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="category-page">
+        <header class="category-header">
+            <a href="index.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back
+            </a>
+            <div class="category-icon" style="background: linear-gradient(135deg, #e1f5fe, #b3e5fc);">
+                <i class="fa-solid fa-lightbulb" style="color: #0288d1;"></i>
+            </div>
+            <div class="category-info">
+                <h1>Guidance</h1>
+                <p>Tips & Tutorials</p>
+            </div>
+            <a href="https://forms.gle/UR1HSavWJYdPBPnC8" target="_blank" class="add-link-btn">
+                <i class="fa-solid fa-plus"></i>
+                ADD LINK
+            </a>
+        </header>
+
+        <div class="project-list">
+            <!-- Example item - add more guidance resources here -->
+            <!-- <div class="project-item">
+                <span class="project-number">01</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #e1f5fe, #b3e5fc);">
+                    <i class="fa-solid fa-book" style="color: #0288d1;"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Resource Title</h3>
+                    <p>https://example.com</p>
+                </div>
+                <div class="project-actions">
+                    <a href="https://example.com" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://example.com')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+    <script>
+        function copyLink(url) {
+            navigator.clipboard.writeText(url).then(() => {
+                alert('Link copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+
+</html>

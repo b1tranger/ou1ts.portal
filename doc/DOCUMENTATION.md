@@ -24,6 +24,7 @@ ou1ts.portal/
 ├── community.html      # Community - Groups & Social
 ├── portfolios.html     # Portfolios - Showcases
 ├── courses.html        # Course Repositories - GitHub repos per course
+├── guidance.html       # Guidance - Tips & Tutorials
 ├── contributions.html  # Contributors - Dynamic page with Google Sheets integration
 ├── style.css           # Main stylesheet (shared across all pages)
 ├── script.js           # JavaScript functionality (sidebar, mobile menu)
@@ -43,7 +44,7 @@ The main landing page with the following sections:
 |---------|-------------|
 | **Hero Section** | Portal title "oU1TS Portal", tagline, and "Submit Resource" button linking to Google Form |
 | **Featured Projects Marquee** | Horizontal auto-scrolling showcase of highlighted student projects |
-| **Category Cards** | 7 clickable cards linking to category pages (Materials, Tools, Community, Course Repos, Portfolios, Official UITS, Contributors) |
+| **Category Cards** | 8 clickable cards linking to category pages (Materials, Tools, Community, Course Repos, Portfolios, Official UITS, Guidance, Contributors) |
 | **About Section** | Description of the oU1TS initiative |
 | **Socials Section** | Links to Facebook, Telegram, Discord, GitHub, Reddit |
 | **App Download** | QR code for the mobile app version (v2.0) |
@@ -78,6 +79,7 @@ Each category page follows a consistent structure:
 | `community.html` | Community | 🔗 Share Nodes | Social groups, Facebook groups, Discord servers |
 | `portfolios.html` | Portfolios | 👤 User | Student portfolio showcases |
 | `courses.html` | Course Repos | 📦 GitHub | GitHub repositories organized by course with dropdown menus |
+| `guidance.html` | Guidance | 💡 Lightbulb | Tips, tutorials, and helpful guides |
 
 **Common Features:**
 - Back button → returns to `index.html`
@@ -313,8 +315,14 @@ const SHEET_ID = 'your-new-sheet-id-here';
   - Community → `community.html`
   - Official → `official.html`
   - Portfolio/Portfolios → `portfolios.html`
+  - Guidance → `guidance.html`
 - Added hover effect styling for resource type links
 - Falls back to non-clickable badge if resource type doesn't match any category
+
+### v2.6 - Guidance Page
+- Added new `guidance.html` category page for tips and tutorials
+- Added Guidance category card to homepage (light blue theme with lightbulb icon)
+- Added Guidance to resource type mappings in contributors page
 
 ---
 
