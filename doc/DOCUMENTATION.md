@@ -7,6 +7,8 @@ A centralized hub for UITS students to access resources, projects, and community
 ## Table of Contents
 - [Project Structure](#project-structure)
 - [Pages Overview](#pages-overview)
+- [Authentication & Starring System](#authentication--starring-system)
+- [Supabase Setup Guide](#supabase-setup-guide)
 - [Customization Guide](#customization)
 - [Google Sheets Integration](#google-sheets-setup)
 - [Changelog](#changelog)
@@ -28,8 +30,13 @@ ou1ts.portal/
 ├── contributions.html  # Contributors - Dynamic page with Google Sheets integration
 ├── style.css           # Main stylesheet (shared across all pages)
 ├── script.js           # JavaScript functionality (sidebar, mobile menu)
+├── js/                 # JavaScript modules
+│   ├── supabase-config.js  # Supabase client configuration
+│   ├── auth.js             # Authentication logic (login, register, logout)
+│   └── stars.js            # Resource starring and ranking logic
 ├── portfolio-icon/     # Icons and assets for portfolio section
-└── DOCUMENTATION.md    # This documentation file
+└── doc/
+    └── DOCUMENTATION.md    # This documentation file
 ```
 
 ---
@@ -86,6 +93,11 @@ Each category page follows a consistent structure:
 - "+ ADD LINK" button → opens Google Form for submissions
 - Numbered project items with visit/copy buttons
 - Consistent dark theme styling
+- **Star button** for each resource (requires login)
+- **Login/Logout button** in header
+- Resources sorted by star count (most starred first)
+
+> **Note:** `courses.html` uses **per-dropdown ranking** — resources are sorted by stars only within their respective course section, not across the entire page.
 
 ---
 
@@ -120,6 +132,181 @@ A dynamic page that fetches contributor data from Google Sheets in real-time.
 
 ---
 
+## Authentication & Starring System
+
+The portal includes a user authentication system with Supabase that allows students to:
+- Register with Student ID (10+ digits), email, and password
+- Login/logout across all pages
+- Star resources to show appreciation
+- See resources ranked by popularity (star count)
+
+### How It Works
+
+| Component | Description |
+|-----------|-------------|
+| **Supabase Auth** | Handles user registration, login, and session management |
+| **Profiles Table** | Stores user Student ID and email |
+| **Stars Table** | Tracks which users starred which resources |
+| **Row Level Security** | Ensures users can only modify their own data |
+
+### Authentication Flow
+
+1. User clicks **Login** button (top-right on any page)
+2. Modal appears with Login/Register forms
+3. **Register:** Student ID (10+ digits) + Email + Password
+4. **Login:** Email + Password
+5. On success, user info (Student ID + Email) displayed in header
+6. Session persists across pages via Supabase
+
+### Starring System
+
+| Feature | Description |
+|---------|-------------|
+| **Star Button** | Appears on each resource item |
+| **Disabled State** | Shown when not logged in (tooltip: "Login to star") |
+| **Active State** | Yellow filled star when user has starred |
+| **Star Count** | Number displayed next to star icon |
+| **Auto-Sort** | Resources sorted by star count (descending) |
+| **Per-Dropdown Sort** | `courses.html` sorts within each dropdown section independently |
+| **Optimistic UI** | Instant visual feedback, reverts on error |
+
+### Files Overview
+
+| File | Purpose |
+|------|--------|
+| `js/supabase-config.js` | Supabase client initialization with project URL and anon key |
+| `js/auth.js` | Auth module: register, login, logout, session management, UI updates |
+| `js/stars.js` | Stars module: toggle stars, load counts, sort resources |
+| `courses.html` (inline) | `CoursesStars` module: per-dropdown star sorting for course repositories |
+
+### Resource ID Format
+
+Each resource has a unique `data-resource-id` attribute:
+- Format: `{page}-{identifier}`
+- Examples: `community-facebook`, `courses-spl-b1tranger`, `tools-handgesture`
+
+---
+
+## Supabase Setup Guide
+
+### 1. Create Supabase Account & Project
+
+1. Go to **https://supabase.com** → Click **"Start your project"**
+2. Sign up with **GitHub** (recommended)
+3. Click **"New Project"** and fill:
+   - **Name:** `ou1ts-portal`
+   - **Database Password:** (save securely!)
+   - **Region:** Singapore (closest to Bangladesh)
+4. Wait 2-3 minutes for project creation
+
+### 2. Get API Keys
+
+1. Go to **Settings** (gear icon) → **API**
+2. Copy:
+   - **Project URL:** `https://xxxxx.supabase.co`
+   - **anon public key:** `eyJhbGc...`
+
+### 3. Update Config File
+
+Edit `js/supabase-config.js`:
+
+```javascript
+const SUPABASE_URL = 'https://YOUR-PROJECT-ID.supabase.co';
+const SUPABASE_ANON_KEY = 'your-anon-key-here';
+```
+
+### 4. Create Database Tables
+
+In Supabase SQL Editor, run:
+
+```sql
+-- Create profiles table
+CREATE TABLE public.profiles (
+  id UUID REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
+  student_id TEXT UNIQUE NOT NULL,
+  email TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Create stars table
+CREATE TABLE public.stars (
+  id SERIAL PRIMARY KEY,
+  user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
+  resource_type TEXT NOT NULL,
+  resource_id TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(user_id, resource_type, resource_id)
+);
+
+-- Create index for faster queries
+CREATE INDEX idx_stars_resource ON public.stars(resource_type, resource_id);
+
+-- Enable Row Level Security
+ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.stars ENABLE ROW LEVEL SECURITY;
+
+-- Profiles policies
+CREATE POLICY "Users can view own profile" ON public.profiles
+  FOR SELECT USING (auth.uid() = id);
+  
+CREATE POLICY "Users can update own profile" ON public.profiles
+  FOR UPDATE USING (auth.uid() = id);
+
+-- Stars policies  
+CREATE POLICY "Anyone can view star counts" ON public.stars
+  FOR SELECT USING (true);
+  
+CREATE POLICY "Authenticated users can star" ON public.stars
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
+  
+CREATE POLICY "Users can unstar own stars" ON public.stars
+  FOR DELETE USING (auth.uid() = user_id);
+
+-- Auto-create profile on signup
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO public.profiles (id, student_id, email)
+  VALUES (
+    NEW.id,
+    NEW.raw_user_meta_data->>'student_id',
+    NEW.email
+  );
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
+```
+
+### 5. Configure Authentication URLs
+
+1. Go to **Authentication** → **URL Configuration**
+2. Set **Site URL:** `https://ouits-res.netlify.app`
+3. Add to **Redirect URLs:** `https://ouits-res.netlify.app`
+
+### Database Schema
+
+```
+profiles
+├── id (UUID, PK, FK → auth.users)
+├── student_id (TEXT, UNIQUE)
+├── email (TEXT)
+└── created_at (TIMESTAMPTZ)
+
+stars
+├── id (SERIAL, PK)
+├── user_id (UUID, FK → profiles)
+├── resource_type (TEXT)  -- e.g., 'community', 'tools'
+├── resource_id (TEXT)    -- e.g., 'community-facebook'
+├── created_at (TIMESTAMPTZ)
+└── UNIQUE(user_id, resource_type, resource_id)
+```
+
+---
+
 ## Customization
 
 ### Adding New Resources Manually
@@ -129,7 +316,7 @@ A dynamic page that fetches contributor data from Google Sheets in real-time.
 3. Add a new `.project-item` following this structure:
 
 ```html
-<div class="project-item">
+<div class="project-item" data-resource-id="category-unique-id">
     <span class="project-number">01</span>
     <div class="project-icon" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb);">
         <i class="fa-solid fa-icon-name" style="color: #1976d2;"></i>
@@ -139,6 +326,10 @@ A dynamic page that fetches contributor data from Google Sheets in real-time.
         <p>https://example.com/</p>
     </div>
     <div class="project-actions">
+        <button class="star-btn disabled" onclick="Stars.toggleStar('category-unique-id')" title="Login to star resources">
+            <i class="fa-solid fa-star"></i>
+            <span class="star-count">0</span>
+        </button>
         <a href="https://example.com/" class="visit-btn" target="_blank">
             Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
         </a>
@@ -149,24 +340,36 @@ A dynamic page that fetches contributor data from Google Sheets in real-time.
 </div>
 ```
 
+**Important:** The `data-resource-id` must be unique across the page and match the ID passed to `Stars.toggleStar()`.
+```
+
 ### Modifying Course Repositories
 
-In `courses.html`, each course uses a dropdown structure:
+In `courses.html`, each course uses a dropdown structure with **per-dropdown star sorting** (resources ranked within each section independently):
 
 ```html
 <div class="course-dropdown">
-    <button class="course-header">
-        <span>Course Name (CODE)</span>
+    <button class="course-header" onclick="toggleDropdown(this)">
+        <span><i class="fa-solid fa-code"></i> Course Name (CODE)</span>
         <i class="fa-solid fa-chevron-down"></i>
     </button>
     <div class="course-content">
-        <div class="repo-item">
-            <a href="https://github.com/..." target="_blank">Repository Name</a>
-            <span class="repo-author">by Author</span>
+        <div class="repo-item" data-resource-id="courses-{course}-{author}">
+            <i class="fa-brands fa-github"></i>
+            <div class="repo-info">
+                <a href="https://github.com/..." target="_blank">@author/student-id</a>
+                <p>author/repository-name</p>
+            </div>
+            <button class="star-btn disabled" onclick="Stars.toggleStar('courses-{course}-{author}')" title="Login to star resources">
+                <i class="fa-solid fa-star"></i>
+                <span class="star-count">0</span>
+            </button>
         </div>
     </div>
 </div>
 ```
+
+**Important:** The `CoursesStars` module (inline in `courses.html`) handles starring differently than other pages — it sorts resources only within their parent `.course-content` container, not page-wide.
 
 ### Updating Form Links
 
@@ -323,6 +526,29 @@ const SHEET_ID = 'your-new-sheet-id-here';
 - Added new `guidance.html` category page for tips and tutorials
 - Added Guidance category card to homepage (light blue theme with lightbulb icon)
 - Added Guidance to resource type mappings in contributors page
+
+### v3.0 - Authentication & Starring System
+- **Backend Integration:** Added Supabase for authentication and database
+- **User Registration:** Students can register with Student ID (10+ digits), email, and password
+- **Login/Logout:** Session-based authentication across all pages
+- **User Display:** Shows Student ID and email in header when logged in
+- **Resource Starring:** Logged-in users can star/unstar any resource
+- **Star Counts:** Visible star count on each resource
+- **Ranking System:** Resources automatically sorted by star count (most popular first)
+- **Auth Modal:** Unified login/register modal with form validation
+- **New Files:**
+  - `js/supabase-config.js` - Supabase client configuration
+  - `js/auth.js` - Authentication module
+  - `js/stars.js` - Starring and ranking module
+- **Updated Pages:** All category pages now include auth UI and star buttons
+- **New CSS:** Auth modal styles, star button styles, header actions
+- **Database:** PostgreSQL via Supabase with Row Level Security
+
+### v3.1 - Per-Dropdown Ranking for Courses
+- **Course Repos Fix:** Fixed dropdown content not displaying properly
+- **Per-Dropdown Sorting:** Resources in `courses.html` now rank by stars within each dropdown section independently
+- **CoursesStars Module:** Custom inline module replacing global `Stars` for course-specific behavior
+- **Isolated Rankings:** Star counts and sorting only affect items within the same course dropdown, not the entire page
 
 ---
 

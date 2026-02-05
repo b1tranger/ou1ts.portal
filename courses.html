@@ -7,9 +7,66 @@
     <title>Course Repositories - oU1TS Portal</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-modal-content">
+            <button class="auth-modal-close" onclick="closeAuthModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h2 id="authModalTitle">Login</h2>
+            
+            <div id="authError" class="auth-error"></div>
+            <div id="authSuccess" class="auth-success"></div>
+
+            <!-- Login Form -->
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required placeholder="Your password">
+                </div>
+                <button type="submit" class="auth-submit-btn">Login</button>
+                <p class="auth-switch">
+                    Don't have an account? 
+                    <a href="#" onclick="switchAuthMode('register'); return false;">Register</a>
+                </p>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" style="display: none;" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="registerStudentId">Student ID</label>
+                    <input type="text" id="registerStudentId" required placeholder="At least 10 digits" pattern="\\d{10,}">
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required minlength="6" placeholder="Min 6 characters">
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirm Password</label>
+                    <input type="password" id="registerConfirmPassword" required placeholder="Confirm password">
+                </div>
+                <button type="submit" class="auth-submit-btn">Register</button>
+                <p class="auth-switch">
+                    Already have an account? 
+                    <a href="#" onclick="switchAuthMode('login'); return false;">Login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
     <div class="category-page">
         <header class="category-header">
             <a href="index.html" class="back-btn">
@@ -23,29 +80,25 @@
                 <h1>Course Repositories</h1>
                 <p>GitHub Repositories</p>
             </div>
-            <a href="https://forms.gle/UR1HSavWJYdPBPnC8" target="_blank" class="add-link-btn">
-                <i class="fa-solid fa-plus"></i>
-                ADD REPO
-            </a>
+            <div class="header-actions">
+                <a href="https://forms.gle/UR1HSavWJYdPBPnC8" target="_blank" class="add-link-btn">
+                    <i class="fa-solid fa-plus"></i>
+                    ADD REPO
+                </a>
+                <!-- Auth Section -->
+                <button class="auth-btn" id="authBtn" onclick="openAuthModal('login')">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                </button>
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <div class="user-details" id="userDetails"></div>
+                    <button class="logout-btn" id="logoutBtn" onclick="handleLogout()">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
         </header>
 
         <div class="course-list">
-            <!--  -->
-            <!-- <div class="course-dropdown">
-                <button class="course-header" onclick="toggleDropdown(this)">
-                    <span><i class="fa-solid fa-code"></i> ()</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="course-content">
-                    <div class="repo-item">
-                        <i class="fa-brands fa-github"></i>
-                        <div class="repo-info">
-                            <a href="" target="_blank"></a>
-                            <p></p>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
             <!-- CSE0613112-SPL-Lab -->
             <div class="course-dropdown">
                 <button class="course-header" onclick="toggleDropdown(this)">
@@ -53,13 +106,17 @@
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div class="course-content">
-                    <div class="repo-item">
+                    <div class="repo-item" data-resource-id="courses-spl-b1tranger">
                         <i class="fa-brands fa-github"></i>
                         <div class="repo-info">
                             <a href="https://github.com/b1tranger/CSE0613112-SPL-Lab"
                                 target="_blank">@b1tranger/0432410005101088</a>
                             <p>b1tranger/CSE0613112-SPL-Lab</p>
                         </div>
+                        <button class="star-btn disabled" onclick="Stars.toggleStar('courses-spl-b1tranger')" title="Login to star resources">
+                            <i class="fa-solid fa-star"></i>
+                            <span class="star-count">0</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -71,15 +128,18 @@
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div class="course-content">
-                    <div class="repo-item">
+                    <div class="repo-item" data-resource-id="courses-wad-b1tranger">
                         <i class="fa-brands fa-github"></i>
                         <div class="repo-info">
                             <a href="https://github.com/b1tranger/CSE0613124-WAD-Lab"
                                 target="_blank">@b1tranger/0432410005101088</a>
                             <p>b1tranger/CSE0613124-WAD-Lab</p>
                         </div>
+                        <button class="star-btn disabled" onclick="Stars.toggleStar('courses-wad-b1tranger')" title="Login to star resources">
+                            <i class="fa-solid fa-star"></i>
+                            <span class="star-count">0</span>
+                        </button>
                     </div>
-
                 </div>
             </div>
 
@@ -90,15 +150,18 @@
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div class="course-content">
-                    <div class="repo-item">
+                    <div class="repo-item" data-resource-id="courses-oop-b1tranger">
                         <i class="fa-brands fa-github"></i>
                         <div class="repo-info">
                             <a href="https://github.com/b1tranger/CSE0613122-OOP-Lab"
                                 target="_blank">@b1tranger/0432410005101088</a>
                             <p>b1tranger/CSE0613122-OOP-Lab</p>
                         </div>
+                        <button class="star-btn disabled" onclick="Stars.toggleStar('courses-oop-b1tranger')" title="Login to star resources">
+                            <i class="fa-solid fa-star"></i>
+                            <span class="star-count">0</span>
+                        </button>
                     </div>
-
                 </div>
             </div>
 
@@ -109,13 +172,17 @@
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div class="course-content">
-                    <div class="repo-item">
+                    <div class="repo-item" data-resource-id="courses-dbms-b1tranger">
                         <i class="fa-brands fa-github"></i>
                         <div class="repo-info">
                             <a href="https://github.com/b1tranger/CSE0612216-DBMS-Lab"
                                 target="_blank">@b1tranger/0432410005101088</a>
                             <p>b1tranger/CSE0612216-DBMS-Lab</p>
                         </div>
+                        <button class="star-btn disabled" onclick="Stars.toggleStar('courses-dbms-b1tranger')" title="Login to star resources">
+                            <i class="fa-solid fa-star"></i>
+                            <span class="star-count">0</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -129,15 +196,19 @@
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div class="course-content">
-                    <div class="repo-item">
+                    <div class="repo-item" data-resource-id="courses-dsa1-b1tranger">
                         <i class="fa-brands fa-github"></i>
                         <div class="repo-info">
                             <a href="https://github.com/b1tranger/CSE0612223-DSA-1-Lab"
                                 target="_blank">@b1tranger/0432410005101088</a>
                             <p>b1tranger/CSE0612223-DSA-1-Lab</p>
                         </div>
+                        <button class="star-btn disabled" onclick="Stars.toggleStar('courses-dsa1-b1tranger')" title="Login to star resources">
+                            <i class="fa-solid fa-star"></i>
+                            <span class="star-count">0</span>
+                        </button>
                     </div>
-                    <div class="repo-item">
+                    <div class="repo-item" data-resource-id="courses-dsa1-robiul">
                         <i class="fa-brands fa-github"></i>
                         <div class="repo-info">
                             <a href="https://drive.google.com/drive/u/0/folders/1sQzOBsZK6u9HCRU-uO0Jdg8c7LRak4XL"
@@ -148,8 +219,11 @@
                                 | +8801997601347 (WhatsApp) 
                             </p>
                         </div>
+                        <button class="star-btn disabled" onclick="Stars.toggleStar('courses-dsa1-robiul')" title="Login to star resources">
+                            <i class="fa-solid fa-star"></i>
+                            <span class="star-count">0</span>
+                        </button>
                     </div>
-
                 </div>
             </div>
 
@@ -161,15 +235,7 @@
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div class="course-content">
-                    <!-- <div class="repo-item">
-                        <i class="fa-brands fa-github"></i>
-                        <div class="repo-info">
-                            <a href="https://github.com/b1tranger/CSE0612223-DSA-1-Lab"
-                                target="_blank">@b1tranger/0432410005101088</a>
-                            <p>b1tranger/CSE0612223-DSA-1-Lab</p>
-                        </div>
-                    </div> -->
-
+                    <!-- Empty for now -->
                 </div>
             </div>
 
@@ -181,13 +247,17 @@
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div class="course-content">
-                    <div class="repo-item">
+                    <div class="repo-item" data-resource-id="courses-sesa-b1tranger">
                         <i class="fa-brands fa-github"></i>
                         <div class="repo-info">
                             <a href="https://github.com/b1tranger/Support-Hero_SESA-Lab-Project"
                                 target="_blank">@b1tranger/0432410005101088</a>
                             <p>b1tranger/Support-Hero_SESA-Lab-Project</p>
                         </div>
+                        <button class="star-btn disabled" onclick="Stars.toggleStar('courses-sesa-b1tranger')" title="Login to star resources">
+                            <i class="fa-solid fa-star"></i>
+                            <span class="star-count">0</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -200,13 +270,17 @@
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div class="course-content">
-                    <div class="repo-item">
+                    <div class="repo-item" data-resource-id="courses-spdd-b1tranger">
                         <i class="fa-brands fa-github"></i>
                         <div class="repo-info">
                             <a href="https://github.com/b1tranger/CSE0613316-SPDD-Project-Design"
                                 target="_blank">@b1tranger/0432410005101088</a>
                             <p>b1tranger/CSE0613316-SPDD-Project-Design</p>
                         </div>
+                        <button class="star-btn disabled" onclick="Stars.toggleStar('courses-spdd-b1tranger')" title="Login to star resources">
+                            <i class="fa-solid fa-star"></i>
+                            <span class="star-count">0</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -218,23 +292,21 @@
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div class="course-content">
-                    <div class="repo-item">
+                    <div class="repo-item" data-resource-id="courses-ai-b1tranger">
                         <i class="fa-brands fa-github"></i>
                         <div class="repo-info">
                             <a href="https://github.com/b1tranger/CSE0613312-AI-Lab"
                                 target="_blank">@b1tranger/0432410005101088</a>
                             <p>b1tranger/CSE0613312-AI-Lab</p>
                         </div>
+                        <button class="star-btn disabled" onclick="Stars.toggleStar('courses-ai-b1tranger')" title="Login to star resources">
+                            <i class="fa-solid fa-star"></i>
+                            <span class="star-count">0</span>
+                        </button>
                     </div>
-                    <!-- <div class="repo-item">
-                        <i class="fa-brands fa-github"></i>
-                        <div class="repo-info">
-                            <a href="" target="_blank"> </a>
-                            <p></p>
-                        </div>
-                    </div> -->
                 </div>
             </div>
+
             <!-- CSE 358 Computer Graphics & Multimedia Lab -->
             <div class="course-dropdown">
                 <button class="course-header" onclick="toggleDropdown(this)">
@@ -242,34 +314,218 @@
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div class="course-content">
-                    <div class="repo-item">
+                    <div class="repo-item" data-resource-id="courses-cg-monotheist">
                         <i class="fa-brands fa-github"></i>
                         <div class="repo-info">
                             <a href="https://github.com/Monotheist0/CSE358-ComputerGraphics-Lab--0432320005101064-"
                                 target="_blank">Md. Masud Rahman (@Monotheist0)/0432320005101064</a>
                             <p>Monotheist0/CSE358-ComputerGraphics-Lab--0432320005101064-</p>
                         </div>
+                        <button class="star-btn disabled" onclick="Stars.toggleStar('courses-cg-monotheist')" title="Login to star resources">
+                            <i class="fa-solid fa-star"></i>
+                            <span class="star-count">0</span>
+                        </button>
                     </div>
-                    <!-- <div class="repo-item">
-                        <i class="fa-brands fa-github"></i>
-                        <div class="repo-info">
-                            <a href="" target="_blank"> </a>
-                            <p></p>
-                        </div>
-                    </div> -->
                 </div>
             </div>
-
-
-
         </div>
     </div>
 
+    <script src="js/supabase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/stars.js"></script>
     <script>
         function toggleDropdown(button) {
             const dropdown = button.parentElement;
             dropdown.classList.toggle('active');
         }
+
+        // Custom per-dropdown star sorting for courses page
+        const CoursesStars = {
+            resourceType: 'courses',
+
+            async init() {
+                await this.loadStarCounts();
+                this.sortAllDropdowns();
+                
+                // Update UI based on auth state
+                window.addEventListener('authStateChanged', () => {
+                    this.updateStarButtons();
+                });
+            },
+
+            async loadStarCounts() {
+                try {
+                    // Get all resource IDs from the page
+                    const items = document.querySelectorAll('[data-resource-id]');
+                    const resourceIds = Array.from(items).map(item => item.dataset.resourceId);
+                    
+                    if (resourceIds.length === 0) return;
+
+                    // Fetch star counts from Supabase
+                    const { data, error } = await window.supabaseClient
+                        .from('stars')
+                        .select('resource_id')
+                        .eq('resource_type', this.resourceType)
+                        .in('resource_id', resourceIds);
+
+                    if (error) throw error;
+
+                    // Count stars per resource
+                    const starCounts = {};
+                    resourceIds.forEach(id => starCounts[id] = 0);
+                    if (data) {
+                        data.forEach(star => {
+                            starCounts[star.resource_id] = (starCounts[star.resource_id] || 0) + 1;
+                        });
+                    }
+
+                    // Update UI with counts
+                    items.forEach(item => {
+                        const resourceId = item.dataset.resourceId;
+                        const countEl = item.querySelector('.star-count');
+                        if (countEl) {
+                            countEl.textContent = starCounts[resourceId] || 0;
+                        }
+                    });
+
+                    // Check which resources current user has starred
+                    await this.loadUserStars(resourceIds);
+                } catch (err) {
+                    console.error('Error loading star counts:', err);
+                }
+            },
+
+            async loadUserStars(resourceIds) {
+                try {
+                    const { data: { user } } = await window.supabaseClient.auth.getUser();
+                    if (!user) return;
+
+                    const { data, error } = await window.supabaseClient
+                        .from('stars')
+                        .select('resource_id')
+                        .eq('user_id', user.id)
+                        .eq('resource_type', this.resourceType)
+                        .in('resource_id', resourceIds);
+
+                    if (error) throw error;
+
+                    // Mark starred items
+                    if (data) {
+                        data.forEach(star => {
+                            const item = document.querySelector(`[data-resource-id="${star.resource_id}"]`);
+                            if (item) {
+                                const btn = item.querySelector('.star-btn');
+                                if (btn) btn.classList.add('starred');
+                            }
+                        });
+                    }
+
+                    this.updateStarButtons();
+                } catch (err) {
+                    console.error('Error loading user stars:', err);
+                }
+            },
+
+            updateStarButtons() {
+                const isLoggedIn = window.Auth && window.Auth.currentUser;
+                document.querySelectorAll('.star-btn').forEach(btn => {
+                    if (isLoggedIn) {
+                        btn.classList.remove('disabled');
+                        btn.title = 'Click to star this resource';
+                    } else {
+                        btn.classList.add('disabled');
+                        btn.title = 'Login to star resources';
+                    }
+                });
+            },
+
+            sortAllDropdowns() {
+                // Sort items within each dropdown separately
+                document.querySelectorAll('.course-content').forEach(content => {
+                    const items = Array.from(content.querySelectorAll('.repo-item'));
+                    if (items.length <= 1) return;
+
+                    // Sort by star count (descending)
+                    items.sort((a, b) => {
+                        const countA = parseInt(a.querySelector('.star-count')?.textContent || '0');
+                        const countB = parseInt(b.querySelector('.star-count')?.textContent || '0');
+                        return countB - countA;
+                    });
+
+                    // Re-append in sorted order
+                    items.forEach(item => content.appendChild(item));
+                });
+            },
+
+            async toggleStar(resourceId) {
+                if (!window.Auth || !window.Auth.currentUser) {
+                    openAuthModal('login');
+                    return;
+                }
+
+                const item = document.querySelector(`[data-resource-id="${resourceId}"]`);
+                const btn = item?.querySelector('.star-btn');
+                const countEl = item?.querySelector('.star-count');
+                if (!btn || !countEl) return;
+
+                const isStarred = btn.classList.contains('starred');
+
+                try {
+                    if (isStarred) {
+                        // Remove star
+                        const { error } = await window.supabaseClient
+                            .from('stars')
+                            .delete()
+                            .eq('user_id', window.Auth.currentUser.id)
+                            .eq('resource_id', resourceId)
+                            .eq('resource_type', this.resourceType);
+
+                        if (error) throw error;
+
+                        btn.classList.remove('starred');
+                        countEl.textContent = Math.max(0, parseInt(countEl.textContent) - 1);
+                    } else {
+                        // Add star
+                        const { error } = await window.supabaseClient
+                            .from('stars')
+                            .insert({
+                                user_id: window.Auth.currentUser.id,
+                                resource_id: resourceId,
+                                resource_type: this.resourceType
+                            });
+
+                        if (error) throw error;
+
+                        btn.classList.add('starred');
+                        countEl.textContent = parseInt(countEl.textContent) + 1;
+                    }
+
+                    // Re-sort just this dropdown section
+                    const dropdown = item.closest('.course-content');
+                    if (dropdown) {
+                        const items = Array.from(dropdown.querySelectorAll('.repo-item'));
+                        items.sort((a, b) => {
+                            const countA = parseInt(a.querySelector('.star-count')?.textContent || '0');
+                            const countB = parseInt(b.querySelector('.star-count')?.textContent || '0');
+                            return countB - countA;
+                        });
+                        items.forEach(i => dropdown.appendChild(i));
+                    }
+                } catch (err) {
+                    console.error('Error toggling star:', err);
+                }
+            }
+        };
+
+        // Override Stars.toggleStar for this page
+        window.Stars = CoursesStars;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                CoursesStars.init();
+            }, 500);
+        });
     </script>
 </body>
 
