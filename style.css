@@ -1656,7 +1656,7 @@ body {
 
 .auth-divider span {
     padding: 0 1rem;
-}
+/* } */
     font-size: 0.9rem;
     display: none;
 }
