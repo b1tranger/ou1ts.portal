@@ -152,11 +152,25 @@ The portal includes a user authentication system with Supabase that allows stude
 ### Authentication Flow
 
 1. User clicks **Login** button (top-right on any page)
-2. Modal appears with Login/Register forms
-3. **Register:** Student ID (10+ digits) + Email + Password
-4. **Login:** Email + Password
-5. On success, user info (Student ID + Email) displayed in header
-6. Session persists across pages via Supabase
+2. Modal appears with authentication options:
+   - **Google OAuth** (recommended) - One-click sign in, no email verification needed
+   - **Email/Password** - Traditional registration with Student ID
+3. **Google Login:** Click "Continue with Google" → Select Google account → Done
+4. **Register:** Student ID (10+ digits) + Email + Password
+5. **Login:** Email + Password
+6. On success, user info displayed in header
+7. Session persists across pages via Supabase
+
+### Google OAuth (Recommended)
+
+Google OAuth bypasses Supabase's email rate limits and provides a faster login experience.
+
+| Benefit | Description |
+|---------|-------------|
+| **No Email Limits** | No verification emails needed |
+| **One-Click Login** | Users sign in with existing Google account |
+| **Faster UX** | No password to remember |
+| **Secure** | OAuth 2.0 industry standard |
 
 ### Starring System
 
@@ -286,6 +300,26 @@ CREATE TRIGGER on_auth_user_created
 1. Go to **Authentication** → **URL Configuration**
 2. Set **Site URL:** `https://ouits-res.netlify.app`
 3. Add to **Redirect URLs:** `https://ouits-res.netlify.app`
+
+### 6. Configure Google OAuth
+
+#### Step 1: Google Cloud Console
+1. Go to [console.cloud.google.com](https://console.cloud.google.com/)
+2. Create a new project or select existing
+3. Navigate to **APIs & Services → Credentials**
+4. Click **Create Credentials → OAuth client ID**
+5. Select **Web application**
+6. Add **Authorized redirect URI:**
+   ```
+   https://YOUR-PROJECT-ID.supabase.co/auth/v1/callback
+   ```
+7. Copy the **Client ID** and **Client Secret**
+
+#### Step 2: Supabase Configuration
+1. Go to **Authentication → Providers → Google**
+2. Toggle **Enable** on
+3. Paste **Client ID** and **Client Secret**
+4. Save
 
 ### Database Schema
 
@@ -549,6 +583,20 @@ const SHEET_ID = 'your-new-sheet-id-here';
 - **Per-Dropdown Sorting:** Resources in `courses.html` now rank by stars within each dropdown section independently
 - **CoursesStars Module:** Custom inline module replacing global `Stars` for course-specific behavior
 - **Isolated Rankings:** Star counts and sorting only affect items within the same course dropdown, not the entire page
+
+### v3.2 - Google OAuth Integration
+- **Google OAuth:** Added "Continue with Google" button to auth modal
+- **Bypass Email Limits:** Google OAuth avoids Supabase email rate limits
+- **One-Click Login:** Users can sign in with their Google account instantly
+- **Auth Divider:** Added "or continue with email" divider between OAuth and email forms
+- **New UI Elements:**
+  - `.google-login-btn` - White button with Google icon and hover effects
+  - `.auth-divider` - Horizontal line with centered text
+- **Updated Files:**
+  - `js/auth.js` - Added `loginWithGoogle()` method and `handleGoogleLogin()` function
+  - `style.css` - Google button and divider styles
+  - `index.html`, `tools.html`, `portfolios.html`, `guidance.html` - Google button in auth modals
+- **Setup Required:** Google Cloud Console OAuth credentials + Supabase provider configuration
 
 ---
 

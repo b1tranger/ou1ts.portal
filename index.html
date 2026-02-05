@@ -29,6 +29,16 @@
             <div id="authError" class="auth-error"></div>
             <div id="authSuccess" class="auth-success"></div>
 
+            <!-- Google OAuth Button -->
+            <button type="button" id="googleLoginBtn" class="google-login-btn" onclick="handleGoogleLogin()">
+                <i class="fa-brands fa-google"></i>
+                Continue with Google
+            </button>
+            
+            <div class="auth-divider">
+                <span>or continue with email</span>
+            </div>
+
             <!-- Login Form -->
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">

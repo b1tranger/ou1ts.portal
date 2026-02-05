@@ -1193,3 +1193,750 @@ Push your changes to GitHub - Netlify will auto-deploy.
 Let me know when you've completed the Supabase setup and I can help test!
 
 Made changes.
+
+---
+
+User: #target: making a new page, contributions.html
+
+#idea: 
+- the new page will be linked in index.html under "Official UITS" category, with a bar separating from the rest.
+- the pageis for listing the contributors who have submitted their resource info through the "Submit Resource" button.
+- as a reference, use this website: https://diuqbank.com/contributors/
+- state the reference clearly at the very bottom of the new page.
+- keep the CSS theme consistent with index.html and the other category pages
+- do not change anything else other than index.html. 
+
+GitHub Copilot: 
+
+User: @agent Try Again
+
+GitHub Copilot: Enable Claude Opus 4.5 for all clients
+[object Object]
+
+User: @agent Enable: "Enable Claude Opus 4.5 for all clients"
+
+GitHub Copilot: Using "Fetch Web Page"
+
+Fetched https://diuqbank.com/contributors/
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/index.html#1-1), lines 1 to 150
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/official.html)
+
+Now let me read the rest of index.html to see the full structure including where the "Official UITS" category card is: 
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/index.html#150-150), lines 150 to 270
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/style.css#1-1), lines 1 to 100
+
+Now I have all the context I need. Let me create the contributions.html page and update index.html. I'll:
+
+1. Create contributions.html with a contributors list layout inspired by the reference website
+2. Update index.html to add a link to contributions.html under the "Official UITS" category with a divider 
+
+Created [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/contributions.html)
+
+Using "Replace String in File"
+
+
+```
+
+```
+I've completed both tasks:
+
+1. **Created contributions.html** - A new page for listing contributors who submit resources through the "Submit Resource" button. The page includes:
+   - Header with back button, icon, and "Submit Resource" button
+   - An info banner explaining the page's purpose
+   - An empty state with a call-to-action for first-time contributors
+   - A commented-out contributors grid template ready to be populated when contributors are added
+   - Reference footer at the bottom crediting the design inspiration from https://diuqbank.com/contributors/
+
+2. **Updated index.html** - Added the "Contributors" category card under "Official UITS" with:
+   - A horizontal divider separating it from the other categories
+   - A green-themed icon (fa-users) with matching gradient background
+   - Description "Resource Submitters"
+
+The CSS styling is consistent with the existing pages, using the same color scheme, card styles, and layout patterns.
+
+Made changes.
+
+User: please update the documentation.md
+
+GitHub Copilot: Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/DOCUMENTATION.md)
+
+Using "Replace String in File"
+
+
+```
+
+```
+
+
+Using "Replace String in File"
+
+
+```
+
+```
+
+
+Using "Replace String in File"
+
+
+```
+
+```
+Updated DOCUMENTATION.md with:
+- Added contributions.html to the project structure
+- Added Contributors page to the category pages table
+- Added v2.1 changelog entry documenting the new contributors page and its reference
+
+Made changes.
+
+User: let's brainstorm.
+
+I am taking the submissions by a Google Form, that will be stored in a Google Sheet. But then I will have to manually update the website contents as I add the submitted resources to the intended locations. 
+Is there a way to automate this process? Can a website pull data directly from Google Sheet? For example, any new submissions will add a new section in the contributions.html
+
+GitHub Copilot: Yes, absolutely! There are several ways to pull data directly from Google Sheets to your website. Here are the main options:
+
+## Option 1: Published Google Sheet (Simplest - No API Key)
+
+1. **Publish your Google Sheet** to the web (File → Share → Publish to web)
+2. Use the sheet's public JSON/CSV endpoint
+3. Fetch with JavaScript and render dynamically
+
+```javascript
+// Example: Fetch from published sheet
+const SHEET_ID = 'your-sheet-id';
+const SHEET_NAME = 'Form Responses 1';
+const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
+
+fetch(url)
+  .then(res => res.text())
+  .then(data => {
+    // Parse and render contributors
+  });
+```
+
+**Pros:** Free, no API key, simple  
+**Cons:** Data is publicly accessible, slight delay in updates
+
+---
+
+## Option 2: Google Sheets API (More Control)
+
+- Requires a Google Cloud project and API key
+- More reliable and structured responses
+- Can handle private sheets with OAuth
+
+---
+
+## Option 3: Third-Party Services
+
+| Service | Free Tier | Notes |
+|---------|-----------|-------|
+| **SheetDB** | 500 req/month | Easy REST API |
+| **Sheety** | 200 req/month | Simple JSON API |
+| **Sheet.best** | 100 req/month | Quick setup |
+
+---
+
+## My Recommendation for Your Use Case
+
+**Option 1 (Published Sheet)** is ideal because:
+- Your data isn't sensitive (contributor names are public anyway)
+- Zero cost
+- No backend needed
+- Works with your static HTML site
+
+Would you like me to implement this for contributions.html? I would:
+
+1. Add JavaScript to fetch data from your Google Sheet
+2. Dynamically render contributor cards based on form responses
+3. The page will auto-update whenever new submissions are added to the sheet
+
+Just share your Google Sheet ID (or the form response sheet), and let me know which columns contain the contributor info (name, ID, etc.).
+
+User: please do. Here is the Google Sheet: https://docs.google.com/spreadsheets/d/1oQ5Mkavjm62UGZwNjM-52yvKppWZHfX-Qpq6jtEVIOY/edit?usp=sharing
+
+What steps do I need to follow?
+
+GitHub Copilot: Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/contributions.html#1-1), lines 1 to 220
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/contributions.html#220-220), lines 220 to 249
+
+Now I need to check your Google Sheet structure to understand the column names. But first, here are the steps you need to follow:
+
+---
+
+## Steps You Need to Follow:
+
+### Step 1: Publish Your Google Sheet to the Web
+1. Open your Google Sheet: https://docs.google.com/spreadsheets/d/1oQ5Mkavjm62UGZwNjM-52yvKppWZHfX-Qpq6jtEVIOY/
+2. Go to **File → Share → Publish to web**
+3. In the dialog:
+   - Select the sheet tab that contains form responses (usually "Form Responses 1")
+   - Choose **"Entire Document"** or the specific sheet
+   - Click **"Publish"**
+4. Confirm by clicking "OK"
+
+### Step 2: Tell Me Your Column Names
+What are the column headers in your Google Form responses? For example:
+- Timestamp
+- Name
+- Email
+- Student ID
+- Resource Link
+- etc.
+
+---
+
+Once you confirm the sheet is published and share the column names, I'll update contributions.html to automatically fetch and display contributors from the sheet.
+
+**Quick question:** Would you like to display:
+- **All unique contributors** (grouped by name, showing count of submissions)?
+- **OR each individual submission** as a separate entry?
+
+User: I want to display "All unique contributors" grouped by "Your Name"
+
+Here are the column names: Timestamp	Email Address	Student Education Email	What is this submission for?	Your Name	Contacts and Social Links	Project Title	Project Link	Project Type	Department	Batch
+
+GitHub Copilot: Using "Replace String in File"
+
+
+```
+
+```
+
+
+Using "Replace String in File"
+
+
+```
+
+```
+Done! I've updated contributions.html to automatically fetch and display contributors from your Google Sheet.
+
+## What You Need to Do:
+
+### Publish Your Google Sheet to the Web
+1. Open your sheet: https://docs.google.com/spreadsheets/d/1oQ5Mkavjm62UGZwNjM-52yvKppWZHfX-Qpq6jtEVIOY/
+2. Go to **File → Share → Publish to web**
+3. Click **"Publish"** and confirm
+
+That's it! Once published, the page will automatically:
+- Fetch all form submissions
+- Group by **"Your Name"** column
+- Display unique contributors sorted by number of submissions (highest first)
+- Show their **Department** and **Batch** as subtitle
+- Show colorful avatar with initials
+- Auto-update whenever new submissions are added (on page refresh)
+
+## Features Implemented:
+| Feature | Description |
+|---------|-------------|
+| **Loading state** | Shows spinner while fetching data |
+| **Empty state** | Displays if no submissions yet |
+| **Error state** | Shows if fetch fails |
+| **Dynamic avatars** | Colored circles with initials |
+| **Contribution count** | Shows number of resources submitted |
+| **Sorted by contributions** | Top contributors appear first |
+
+Made changes.
+
+User: the empty state is not working
+
+GitHub Copilot: Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/contributions.html#180-180), lines 180 to 280
+
+I see the issue. The problem is that if the Google Sheet isn't published yet or the fetch fails silently, the error might not be caught properly. Also, if the sheet has a header row, it might be counted as data. Let me fix the script with better error handling and skip the header row: 
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/contributions.html#280-280), lines 280 to 389
+
+Using "Replace String in File"
+
+
+```
+
+```
+Fixed! The changes include:
+
+1. **Better error handling** - Now properly catches network errors and invalid responses
+2. **Validates Google Sheet response format** - Checks if the sheet is actually published
+3. **Skips header rows** - Filters out rows where the name equals "Your Name" (column header)
+4. **Proper display styling** - Changed `display: block` to `display: flex` for centered content
+
+**Important:** Have you published your Google Sheet to the web yet? If not:
+
+1. Open: https://docs.google.com/spreadsheets/d/1oQ5Mkavjm62UGZwNjM-52yvKppWZHfX-Qpq6jtEVIOY/
+2. Go to **File → Share → Publish to web**
+3. Select **"Entire Document"** and click **Publish**
+
+If it's still showing the loading spinner or error state, open the browser console (F12 → Console tab) and let me know what error message appears.
+
+Made changes.
+
+User: update the documentation.md
+
+GitHub Copilot: Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/DOCUMENTATION.md)
+
+Using "Replace String in File"
+
+
+```
+
+```
+Updated DOCUMENTATION.md with:
+
+- **v2.2 changelog** documenting the Google Sheets integration
+- **New "Google Sheets Setup" section** explaining:
+  - How to publish the sheet
+  - Column mapping reference table
+  - Code snippet showing how to modify column indices
+
+Made changes.
+
+User: I want to show the 'Student Education Email" detail of the contributor alongside what is shown currently. 
+
+And upon clicking on the cards, a pop-up window should show a list of all the resources submitted  by the same name.
+
+GitHub Copilot: 
+
+User: I want to show the 'Student Education Email" detail of the contributor alongside what is shown currently. 
+
+And upon clicking on the cards, a pop-up window should show a list of all the resources submitted  by the same name. Each resources will have their details from the columns:
+- Project Title	
+- Project Link	
+- Project Type
+
+GitHub Copilot: Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/contributions.html#1-1), lines 1 to 180
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/contributions.html#180-180), lines 180 to 320
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/contributions.html#320-320), lines 320 to 413
+
+Now I have the full picture. I need to:
+1. Add modal CSS styles
+2. Add modal HTML structure
+3. Update column indices to include email, project title, link, and type
+4. Store all submissions per contributor (not just count)
+5. Add click handler to show modal with resources 
+
+Using "Multi-Replace String in Files"
+
+
+```
+
+```
+Done! I've updated contributions.html with the following features:
+
+### New Features Added:
+
+1. **Student Education Email Display**
+   - Now shows the contributor's education email below their name on each card
+
+2. **Clickable Cards with Modal Popup**
+   - Clicking any contributor card opens a modal/popup window
+   - Modal shows:
+     - Contributor's name and email in the header
+     - Avatar with initials
+     - List of all submitted resources with:
+       - **Project Title**
+       - **Project Type** (as a badge)
+       - **Project Link** (clickable, opens in new tab)
+
+3. **Modal Interactions**
+   - Click the ✕ button to close
+   - Click outside the modal to close
+   - Press **Escape** key to close
+   - Smooth slide-in animation
+
+### Column Mapping Updated:
+| Index | Column Name |
+|-------|-------------|
+| 2 | Student Education Email |
+| 4 | Your Name |
+| 6 | Project Title |
+| 7 | Project Link |
+| 8 | Project Type |
+| 9 | Department |
+| 10 | Batch |
+
+Made changes.
+
+User: update the documentation. add more details to all parts.
+
+GitHub Copilot: Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/DOCUMENTATION.md)
+
+Using "Replace String in File"
+
+
+```
+
+```
+Updated DOCUMENTATION.md with comprehensive details including:
+
+### Additions:
+- **Table of Contents** with anchor links
+- **Detailed Project Structure** with file descriptions
+- **Expanded Pages Overview** with tables for each section
+- **Category Pages breakdown** with icons and descriptions
+- **Contributors Page features table** explaining all functionality
+- **Modal features** documentation
+- **Customization Guide** with full HTML code examples
+- **Styling guide** with color scheme table
+- **Google Sheets section** expanded:
+  - How it works explanation
+  - Full column mapping with all 11 columns
+  - Troubleshooting table
+  - Instructions for changing the sheet
+- **v2.3 Changelog** documenting the latest modal/email features
+- **Credits section** at the bottom
+
+Made changes.
+
+User: the pop-up window should show the Email and Social link as well
+
+GitHub Copilot: Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/contributions.html#420-420), lines 420 to 520
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/contributions.html#600-600), lines 600 to 680
+
+Now I can see the modal structure. I need to update the modal HTML and the JavaScript to show email and social links. 
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/contributions.html#380-380), lines 380 to 420
+
+Using "Multi-Replace String in Files"
+
+
+```
+
+```
+Done! Updated contributions.html - the modal popup now shows:
+
+### Contact Information Section:
+- **Email** - with envelope icon, clickable `mailto:` link
+- **Social Links** - with link icon, clickable if it's a URL
+
+### Modal Structure:
+1. **Header** - Avatar, name, department & batch
+2. **Contact Information** - Email and social links in a styled card
+3. **Submitted Resources** - List of all resources with title, type, and link
+
+If no contact info is provided, it displays "No contact information provided" message.
+
+Made changes.
+
+User: please update the documentation at "doc/DOCUMENTATION.md"
+
+GitHub Copilot: Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/doc/DOCUMENTATION.md#1-1), lines 1 to 100
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/doc/DOCUMENTATION.md#100-100), lines 100 to 200
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/doc/DOCUMENTATION.md#200-200), lines 200 to 298
+
+Using "Replace String in File"
+
+
+```
+
+```
+
+
+Using "Replace String in File"
+
+
+```
+
+```
+
+
+Using "Replace String in File"
+
+
+```
+
+```
+Updated DOCUMENTATION.md with:
+
+1. **Modal Features section** - Now includes detailed breakdown of Contact Information and Resources sections
+2. **Column Mapping table** - Updated column 5 (Social Links) to show it's now displayed in the modal
+3. **v2.4 Changelog** - Added new version documenting the modal contact information feature
+
+Made changes.
+
+User: Supabase has email rate limit, that I want to bypass using another service. What options do we have? Google OAuth or Firebase or anything else?
+
+GitHub Copilot: Here are your options to bypass Supabase's email rate limits:
+
+## Option 1: Social OAuth Providers (Recommended)
+No email sending required - users authenticate directly with the provider.
+
+| Provider | Pros | Cons |
+|----------|------|------|
+| **Google OAuth** | Most users have Google; easy setup | Requires Google Cloud Console config |
+| **GitHub OAuth** | Great for developer audience | Limited to users with GitHub accounts |
+| **Discord OAuth** | Good for community apps | Limited audience |
+| **Facebook OAuth** | Wide user base | Complex approval process |
+
+**Supabase supports all of these natively** - just enable in Dashboard → Authentication → Providers.
+
+---
+
+## Option 2: Custom SMTP (Your Own Email Server)
+Use your own email service instead of Supabase's built-in:
+
+| Service | Free Tier | Notes |
+|---------|-----------|-------|
+| **Resend** | 3,000 emails/month | Modern API, easy setup |
+| **SendGrid** | 100 emails/day | Popular, reliable |
+| **Mailgun** | 1,000 emails/month | Good deliverability |
+| **AWS SES** | 62,000/month (from EC2) | Cheapest at scale |
+| **Brevo (Sendinblue)** | 300 emails/day | Good free tier |
+
+Configure in Supabase: Dashboard → Project Settings → Auth → SMTP Settings
+
+---
+
+## Option 3: Firebase Auth (Replace Supabase Auth)
+Use Firebase only for authentication, keep Supabase for database:
+- Higher email limits
+- Phone auth included
+- More OAuth providers
+- Adds complexity (two services)
+
+---
+
+## My Recommendation
+
+**Google OAuth** is the best option because:
+1. Zero email rate limits
+2. Most UITS students likely have Google accounts (education email)
+3. Native Supabase support
+4. Fast sign-in (one click)
+5. No additional costs
+
+Would you like me to implement Google OAuth for your project? I'll need you to:
+1. Create a project in [Google Cloud Console](https://console.cloud.google.com/)
+2. Enable OAuth 2.0 credentials
+3. Share the Client ID and redirect URI
+
+User: can I use Resend for this purpose? what are the coss?
+
+GitHub Copilot: Yes, **Resend** is an excellent choice for Supabase custom SMTP. Here's the breakdown:
+
+## Resend Pricing
+
+| Plan | Price | Emails/Month | Rate Limit |
+|------|-------|--------------|------------|
+| **Free** | $0 | 3,000 | 100/day |
+| **Pro** | $20/month | 50,000 | 500/second |
+| **Enterprise** | Custom | Unlimited | Custom |
+
+**Free tier is likely enough** for your use case (contributors submitting resources).
+
+---
+
+## Setup Steps
+
+### 1. Create Resend Account
+1. Go to [resend.com](https://resend.com)
+2. Sign up (free)
+3. Verify your domain OR use their test domain for development
+
+### 2. Get API Key
+1. Dashboard → API Keys → Create API Key
+2. Copy the key (starts with `re_`)
+
+### 3. Configure in Supabase
+Go to **Supabase Dashboard → Project Settings → Auth → SMTP Settings**:
+
+| Field | Value |
+|-------|-------|
+| Host | `smtp.resend.com` |
+| Port | `465` |
+| Username | `resend` |
+| Password | Your API key (`re_...`) |
+| Sender email | `noreply@yourdomain.com` or `onboarding@resend.dev` (for testing) |
+
+---
+
+## Pros & Cons of Resend
+
+**Pros:**
+- Modern, developer-friendly API
+- Great deliverability
+- Simple setup
+- Generous free tier (3,000/month)
+- Works perfectly with Supabase
+
+**Cons:**
+- 100 emails/day limit on free tier (resets daily)
+- Need to verify domain for production (or use their test domain)
+
+---
+
+## Comparison: Resend vs Google OAuth
+
+| Factor | Resend (SMTP) | Google OAuth |
+|--------|---------------|--------------|
+| **User Experience** | Email + password + verification | One-click sign in |
+| **Setup Complexity** | Medium | Medium |
+| **Cost** | Free (3,000/month) | Free (unlimited) |
+| **Rate Limits** | 100/day free | None |
+| **Email Required** | Yes | No |
+
+**Verdict:** If you want to keep email/password auth, Resend is great. If you want the smoothest UX with no limits, Google OAuth is better.
+
+Would you like me to help you set up Resend with Supabase, or would you prefer to go with Google OAuth?
+
+User: let's go with Google OAuth
+
+GitHub Copilot: Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/js/supabase-config.js)
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/js/auth.js#1-1), lines 1 to 100
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/js/auth.js#100-100), lines 100 to 200
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/js/auth.js#200-200), lines 200 to 329
+
+Now I'll add Google OAuth support to your auth system. Here's what you need to do:
+
+---
+
+## Step 1: Set Up Google Cloud Console
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project (or select existing)
+3. Go to **APIs & Services → Credentials**
+4. Click **Create Credentials → OAuth client ID**
+5. Select **Web application**
+6. Add these **Authorized redirect URIs**:
+   - `https://gcegxwqdztlgqewmvteh.supabase.co/auth/v1/callback`
+7. Copy the **Client ID** and **Client Secret**
+
+---
+
+## Step 2: Configure Supabase
+
+1. Go to your [Supabase Dashboard](https://supabase.com/dashboard)
+2. Select your project → **Authentication → Providers**
+3. Find **Google** and enable it
+4. Paste your **Client ID** and **Client Secret**
+5. Save
+
+---
+
+## Step 3: Code Changes
+
+Let me add Google OAuth to your auth.js: 
+
+Replacing 15 lines with 31 lines in [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/js/auth.js)
+
+
+```
+
+```
+
+
+Replacing 9 lines with 31 lines in [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/js/auth.js)
+
+
+```
+
+```
+Now let me find your auth modal HTML to add the Google button: 
+
+Searched for text `authModal`, 20 results
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/index.html#20-20), lines 20 to 110
+
+Replacing 12 lines with 42 lines in [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/index.html), [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/tools.html), [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/portfolios.html)
+
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/guidance.html#15-15), lines 15 to 60
+
+Replacing 4 lines with 14 lines in [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/guidance.html)
+
+
+```
+
+```
+
+
+Searched for text `auth-submit-btn` (`**/style.css`), 3 results
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/style.css#1540-1540), lines 1540 to 1600
+
+Replacing 7 lines with 66 lines in [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/style.css)
+
+
+```
+
+```
+
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/style.css#1590-1590), lines 1590 to 1650
+
+Read [](file:///e%3A/Git_WIP/2.%20Personal%20Repositories/ou1ts.portal/style.css#1575-1575), lines 1575 to 1610
+
+The Google OAuth implementation is now complete. Here's a summary:
+
+---
+
+## What I've Added:
+
+### 1. JavaScript (auth.js)
+- `loginWithGoogle()` method in the Auth object
+- `handleGoogleLogin()` function for the button click
+
+### 2. HTML (all auth modal pages)
+- Google login button with icon
+- "or continue with email" divider
+- Updated files: index.html, tools.html, portfolios.html, guidance.html
+
+### 3. CSS (style.css)
+- `.google-login-btn` - White button with Google icon
+- `.auth-divider` - Horizontal line with text
+
+---
+
+## Steps You Need to Complete:
+
+### 1. Google Cloud Console
+1. Go to [console.cloud.google.com](https://console.cloud.google.com/)
+2. Create project → **APIs & Services → Credentials**
+3. **Create Credentials → OAuth client ID → Web application**
+4. Add redirect URI:
+   ```
+   https://gcegxwqdztlgqewmvteh.supabase.co/auth/v1/callback
+   ```
+5. Copy **Client ID** and **Client Secret**
+
+### 2. Supabase Dashboard
+1. Go to **Authentication → Providers → Google**
+2. Enable it
+3. Paste Client ID and Client Secret
+4. Save
+
+---
+
+Once configured, users will see a **"Continue with Google"** button at the top of the login/register modal. One click and they're authenticated - no email rate limits!
+
+Made changes.
+
+User: update the documentation "doc/DOCUMENTATION.md"
+
+GitHub Copilot: 

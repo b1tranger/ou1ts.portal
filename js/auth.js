@@ -117,6 +117,22 @@ const Auth = {
         return data;
     },
 
+    // Login with Google OAuth
+    async loginWithGoogle() {
+        const supabase = window.supabaseClient;
+        if (!supabase) throw new Error('Authentication service unavailable. Please refresh the page.');
+
+        const { data, error } = await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+                redirectTo: window.location.origin + window.location.pathname
+            }
+        });
+
+        if (error) throw error;
+        return data;
+    },
+
     // Logout user
     async logout() {
         const supabase = window.supabaseClient;
@@ -306,6 +322,28 @@ async function handleLogout() {
         await Auth.logout();
     } catch (error) {
         console.error('Logout error:', error);
+    }
+}
+
+// Google OAuth handler
+async function handleGoogleLogin() {
+    clearAuthErrors();
+    const googleBtn = document.getElementById('googleLoginBtn');
+    
+    try {
+        if (googleBtn) {
+            googleBtn.disabled = true;
+            googleBtn.innerHTML = '<i class="fa-brands fa-google"></i> Connecting...';
+        }
+        
+        await Auth.loginWithGoogle();
+        // OAuth redirects, so this won't execute unless there's an error
+    } catch (error) {
+        showAuthError(error.message || 'Google login failed. Please try again.');
+        if (googleBtn) {
+            googleBtn.disabled = false;
+            googleBtn.innerHTML = '<i class="fa-brands fa-google"></i> Continue with Google';
+        }
     }
 }
 
