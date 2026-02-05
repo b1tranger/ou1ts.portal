@@ -7,20 +7,31 @@ const Auth = {
     async init() {
         const supabase = window.supabaseClient;
         
-        // Check for existing session
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session) {
-            await this.setUser(session.user);
+        // Check if Supabase client is available
+        if (!supabase) {
+            console.error('Supabase client not initialized. Auth features disabled.');
+            this.updateUI();
+            return;
         }
 
-        // Listen for auth changes
-        supabase.auth.onAuthStateChange(async (event, session) => {
-            if (event === 'SIGNED_IN' && session) {
+        try {
+            // Check for existing session
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
                 await this.setUser(session.user);
-            } else if (event === 'SIGNED_OUT') {
-                this.clearUser();
             }
-        });
+
+            // Listen for auth changes
+            supabase.auth.onAuthStateChange(async (event, session) => {
+                if (event === 'SIGNED_IN' && session) {
+                    await this.setUser(session.user);
+                } else if (event === 'SIGNED_OUT') {
+                    this.clearUser();
+                }
+            });
+        } catch (error) {
+            console.error('Auth initialization error:', error);
+        }
 
         this.updateUI();
     },
@@ -28,6 +39,7 @@ const Auth = {
     // Set current user and fetch profile
     async setUser(user) {
         const supabase = window.supabaseClient;
+        if (!supabase) return;
         
         // Fetch profile data
         const { data: profile } = await supabase
@@ -39,7 +51,7 @@ const Auth = {
         this.currentUser = {
             id: user.id,
             email: user.email,
-            studentId: profile?.student_id || 'N/A'
+            studentId: profile?.student_id || user.user_metadata?.student_id || 'N/A'
         };
 
         this.updateUI();
@@ -60,6 +72,7 @@ const Auth = {
     // Register new user
     async register(studentId, email, password) {
         const supabase = window.supabaseClient;
+        if (!supabase) throw new Error('Authentication service unavailable. Please refresh the page.');
 
         // Validate student ID
         if (!this.validateStudentId(studentId)) {
@@ -93,6 +106,7 @@ const Auth = {
     // Login user
     async login(email, password) {
         const supabase = window.supabaseClient;
+        if (!supabase) throw new Error('Authentication service unavailable. Please refresh the page.');
 
         const { data, error } = await supabase.auth.signInWithPassword({
             email: email,
@@ -106,6 +120,8 @@ const Auth = {
     // Logout user
     async logout() {
         const supabase = window.supabaseClient;
+        if (!supabase) throw new Error('Authentication service unavailable. Please refresh the page.');
+        
         const { error } = await supabase.auth.signOut();
         if (error) throw error;
     },
