@@ -2,6 +2,11 @@
 
 A centralized hub for UITS students to access resources, projects, and community links. Built with vanilla HTML, CSS, and JavaScript for maximum simplicity and portability.
 
+This project is an Academic Resources Portal called "oU1TS Portal" designed to serve as a centralized hub for UITS students to discover and access academic resources, projects, and community platforms. 
+- The portal's primary purpose is to make it easy for students to find study materials, useful tools, course repositories, guidance tutorials, and social groups all in one place through an organized category-based navigation system.
+- Students can actively contribute by submitting their own resources via Google Forms, and contributors are recognized in a dedicated "Contributors" section, fostering a culture of collaboration and peer support.
+- By integrating authentication (via Supabase with Google OAuth and email options), featured project showcases, and links to various social platforms (Facebook, Telegram, Discord, Reddit, GitHub), the project builds community value and encourages students to participate in creating a productive, student-centered online ecosystem that helps them navigate university life more effectively while showcasing student-made projects and portfolios.
+
 ---
 
 ## Table of Contents
