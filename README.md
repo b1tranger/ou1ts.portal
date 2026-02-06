@@ -12,7 +12,7 @@ This project is an Academic Resources Portal called "oU1TS Portal" designed to s
 <div align=center>
   
   <img style="margin:auto;" width="478" height="426" alt="image" src="https://github.com/user-attachments/assets/fc4f9f42-28a2-456c-8146-d447e712afb2" />
-
+<p>I used Google Sheets for contributions.html : )</p>
   <p>using <a href="https://chromewebstore.google.com/detail/wappalyzer-technology-pro/gppongmhjkpfnbhagpmjfkannfbllamg?hl=en">Wappalyzer</a></p>
 
 </div>
