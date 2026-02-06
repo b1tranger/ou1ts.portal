@@ -881,7 +881,7 @@ body {
     font-size: 0.8rem;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: wrap;
 }
 
 .project-actions {
