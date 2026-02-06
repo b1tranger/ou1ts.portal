@@ -19,7 +19,7 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <h2 id="authModalTitle">Login</h2>
-            
+
             <div id="authError" class="auth-error"></div>
             <div id="authSuccess" class="auth-success"></div>
 
@@ -28,7 +28,7 @@
                 <i class="fa-brands fa-google"></i>
                 Continue with Google
             </button>
-            
+
             <div class="auth-divider">
                 <span>or continue with email</span>
             </div>
@@ -57,7 +57,7 @@
                 </div>
                 <button type="submit" class="auth-submit-btn">Login</button>
                 <p class="auth-switch">
-                    Don't have an account? 
+                    Don't have an account?
                     <a href="#" onclick="switchAuthMode('register'); return false;">Register</a>
                 </p>
             </form>
@@ -66,7 +66,8 @@
             <form id="registerForm" style="display: none;" onsubmit="handleRegister(event)">
                 <div class="form-group">
                     <label for="registerStudentId">Student ID</label>
-                    <input type="text" id="registerStudentId" required placeholder="At least 10 digits" pattern="\\d{10,}">
+                    <input type="text" id="registerStudentId" required placeholder="At least 10 digits"
+                        pattern="\\d{10,}">
                 </div>
                 <div class="form-group">
                     <label for="registerEmail">Email</label>
@@ -82,7 +83,7 @@
                 </div>
                 <button type="submit" class="auth-submit-btn">Register</button>
                 <p class="auth-switch">
-                    Already have an account? 
+                    Already have an account?
                     <a href="#" onclick="switchAuthMode('login'); return false;">Login</a>
                 </p>
             </form>
@@ -121,6 +122,8 @@
         </header>
 
         <div class="project-list">
+
+
             <div class="project-item" data-resource-id="portfolio-b1tranger">
                 <span class="project-number">01</span>
                 <div class="project-icon" style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9);">
@@ -131,7 +134,8 @@
                     <p></p>
                 </div>
                 <div class="project-actions">
-                    <button class="star-btn disabled" onclick="Stars.toggleStar('portfolio-b1tranger')" title="Login to star resources">
+                    <button class="star-btn disabled" onclick="Stars.toggleStar('portfolio-b1tranger')"
+                        title="Login to star resources">
                         <i class="fa-solid fa-star"></i>
                         <span class="star-count">0</span>
                     </button>
@@ -149,14 +153,16 @@
                 <span class="project-number">02</span>
                 <div class="project-icon" style="background: linear-gradient(135deg, #f3e5f500, #ffffff00);">
                     <!-- <i class="fa-solid fa-user-tie" style="color: #7b1fa2;"></i> -->
-                    <span style="font-size: 2rem;">🐸</span>
+                    <!-- <span style="font-size: 2rem;">🐸</span> -->
+                    <img src="portfolio-icon/AnNazmusSakib-portfolio.webp">
                 </div>
                 <div class="project-info">
                     <h3>@chatok-jnr/0432220005101058</h3>
                     <p class="repo-info"> | <a href="https://www.facebook.com/sakib.the.jnr.chatok">Social</a></p>
                 </div>
                 <div class="project-actions">
-                    <button class="star-btn disabled" onclick="Stars.toggleStar('portfolio-chatokjnr')" title="Login to star resources">
+                    <button class="star-btn disabled" onclick="Stars.toggleStar('portfolio-chatokjnr')"
+                        title="Login to star resources">
                         <i class="fa-solid fa-star"></i>
                         <span class="star-count">0</span>
                     </button>
@@ -179,7 +185,8 @@
                     <p class="repo-info"> | <a href="https://www.facebook.com/atikshahriaopu">Social</a></p>
                 </div>
                 <div class="project-actions">
-                    <button class="star-btn disabled" onclick="Stars.toggleStar('portfolio-atikshahria')" title="Login to star resources">
+                    <button class="star-btn disabled" onclick="Stars.toggleStar('portfolio-atikshahria')"
+                        title="Login to star resources">
                         <i class="fa-solid fa-star"></i>
                         <span class="star-count">0</span>
                     </button>
@@ -191,6 +198,131 @@
                     </button>
                 </div>
             </div>
+            <div class="project-item" data-resource-id="portfolio-MahfuzRahman">
+                <span class="project-number">04</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #f3e5f500, #ffffff00);">
+                    <!-- <i class="fa-solid fa-user-tie" style="color: #7b1fa2;"></i> -->
+                    <img src="portfolio-icon/MahfuzRahman-portfolio.webp">
+                </div>
+                <div class="project-info">
+                    <h3>@Mahfuz Rahman</h3>
+                    <p class="repo-info"> | <a href="https://www.linkedin.com/in/md-kamruzzaman-shishir/">Social</a></p>
+                </div>
+                <div class="project-actions">
+                    <button class="star-btn disabled" onclick="Stars.toggleStar('portfolio-MahfuzRahman')"
+                        title="Login to star resources">
+                        <i class="fa-solid fa-star"></i>
+                        <span class="star-count">0</span>
+                    </button>
+                    <a href="https://mahfuz-portfolio-three.vercel.app/" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://mahfuz-portfolio-three.vercel.app/')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="project-item" data-resource-id="portfolio-AkibReza">
+                <span class="project-number">05</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #f3e5f500, #ffffff00);">
+                    <!-- <i class="fa-solid fa-user-tie" style="color: #7b1fa2;"></i> -->
+                    <img src="portfolio-icon/AkibReza-portfolio.webp">
+                </div>
+                <div class="project-info">
+                    <h3>@Akib Reza/0432220005101061</h3>
+                    <p class="repo-info"> | <a href="https://www.facebook.com/alpha.akib">Social</a></p>
+                </div>
+                <div class="project-actions">
+                    <button class="star-btn disabled" onclick="Stars.toggleStar('portfolio-AkibReza')"
+                        title="Login to star resources">
+                        <i class="fa-solid fa-star"></i>
+                        <span class="star-count">0</span>
+                    </button>
+                    <a href="https://akibreza.netlify.app/" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://akibreza.netlify.app/')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="project-item" data-resource-id="portfolio-AhammedAbdaliKhan">
+                <span class="project-number">06</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #f3e5f500, #ffffff00);">
+                    <!-- <i class="fa-solid fa-user-tie" style="color: #7b1fa2;"></i> -->
+                    <img src="portfolio-icon/AhammedAbdaliKhan-portfolio.webp">
+                </div>
+                <div class="project-info">
+                    <h3>@Ahammed Abdali Khan/0432320005101118</h3>
+                    <p class="repo-info"> | <a href="https://www.facebook.com/ahk.abdali/">Social</a></p>
+                </div>
+                <div class="project-actions">
+                    <button class="star-btn disabled" onclick="Stars.toggleStar('portfolio-AhammedAbdaliKhan')"
+                        title="Login to star resources">
+                        <i class="fa-solid fa-star"></i>
+                        <span class="star-count">0</span>
+                    </button>
+                    <a href="https://abdali.vercel.app/" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://abdali.vercel.app/')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="project-item" data-resource-id="portfolio-MdKamruzzamanShishir">
+                <span class="project-number">07</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #f3e5f500, #ffffff00);">
+                    <!-- <i class="fa-solid fa-user-tie" style="color: #7b1fa2;"></i> -->
+                    <img src="portfolio-icon/MdKamruzzamanShishir-portfolio.webp">
+                </div>
+                <div class="project-info">
+                    <h3>@Md Kamruzzaman Shishir/1814355002</h3>
+                    <p class="repo-info"> | <a href="https://www.linkedin.com/in/md-kamruzzaman-shishir/">Social</a></p>
+                </div>
+                <div class="project-actions">
+                    <button class="star-btn disabled" onclick="Stars.toggleStar('portfolio-MdKamruzzamanShishir')"
+                        title="Login to star resources">
+                        <i class="fa-solid fa-star"></i>
+                        <span class="star-count">0</span>
+                    </button>
+                    <a href="https://mkshishir.pages.dev/" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://mkshishir.pages.dev/')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="project-item" data-resource-id="portfolio-SelimReza">
+                <span class="project-number">08</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #f3e5f500, #ffffff00);">
+                    <!-- <i class="fa-solid fa-user-tie" style="color: #7b1fa2;"></i> -->
+                    <img src="portfolio-icon/SelimReza-portfolio.webp">
+                </div>
+                <div class="project-info">
+                    <h3>@Selim Reza/0432410005101150</h3>
+                    <p class="repo-info"> | <a href="https://www.linkedin.com/in/selim-reza/">Social</a></p>
+                </div>
+                <div class="project-actions">
+                    <button class="star-btn disabled" onclick="Stars.toggleStar('portfolio-SelimReza')"
+                        title="Login to star resources">
+                        <i class="fa-solid fa-star"></i>
+                        <span class="star-count">0</span>
+                    </button>
+                    <a href="https://mohammad-selim-reza-portfolio.netlify.app/" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://mohammad-selim-reza-portfolio.netlify.app/')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+
+
+
+
         </div>
     </div>
 
