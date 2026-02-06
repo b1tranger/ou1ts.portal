@@ -1563,6 +1563,26 @@ body {
     transform: none;
 }
 
+.auth-secondary-btn {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(244, 67, 54, 0.15);
+    color: #f44336;
+    border: 1px solid rgba(244, 67, 54, 0.4);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.75rem;
+}
+
+.auth-secondary-btn:hover {
+    background: rgba(244, 67, 54, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(244, 67, 54, 0.2);
+}
+
 .auth-switch {
     text-align: center;
     margin-top: 1.5rem;

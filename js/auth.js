@@ -42,19 +42,44 @@ const Auth = {
         if (!supabase) return;
         
         // Fetch profile data
-        const { data: profile } = await supabase
+        const { data: profile, error } = await supabase
             .from('profiles')
             .select('student_id, email')
             .eq('id', user.id)
             .single();
 
+        // If profile doesn't exist (OAuth user), create it
+        if (error && error.code === 'PGRST116') {
+            const { error: insertError } = await supabase
+                .from('profiles')
+                .insert({
+                    id: user.id,
+                    student_id: user.user_metadata?.student_id || 'OAUTH_USER',
+                    email: user.email
+                });
+
+            if (insertError) {
+                console.error('Failed to create profile:', insertError);
+            }
+        } else if (error) {
+            console.error('Failed to fetch profile:', error);
+        }
+
+        const rawStudentId = profile?.student_id || user.user_metadata?.student_id || null;
+        const needsStudentId = !rawStudentId || rawStudentId === 'OAUTH_USER';
+        const displayStudentId = needsStudentId ? 'Google User' : rawStudentId;
+
         this.currentUser = {
             id: user.id,
             email: user.email,
-            studentId: profile?.student_id || user.user_metadata?.student_id || 'N/A'
+            studentId: displayStudentId
         };
 
         this.updateUI();
+
+        if (needsStudentId) {
+            openAuthModal('complete-profile');
+        }
     },
 
     // Clear user data
@@ -67,6 +92,34 @@ const Auth = {
     validateStudentId(studentId) {
         const digitsOnly = studentId.replace(/\D/g, '');
         return digitsOnly.length >= 10;
+    },
+
+    // Update student ID for current user
+    async updateStudentId(studentId) {
+        const supabase = window.supabaseClient;
+        if (!supabase) throw new Error('Authentication service unavailable. Please refresh the page.');
+
+        if (!this.currentUser?.id) {
+            throw new Error('No active user session found.');
+        }
+
+        const digitsOnly = studentId.replace(/\D/g, '');
+        if (!this.validateStudentId(digitsOnly)) {
+            throw new Error('Student ID must be at least 10 digits');
+        }
+
+        const { error } = await supabase
+            .from('profiles')
+            .upsert({
+                id: this.currentUser.id,
+                student_id: digitsOnly,
+                email: this.currentUser.email
+            }, { onConflict: 'id' });
+
+        if (error) throw error;
+
+        this.currentUser.studentId = digitsOnly;
+        this.updateUI();
     },
 
     // Register new user
@@ -125,7 +178,11 @@ const Auth = {
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
-                redirectTo: window.location.origin + window.location.pathname
+                redirectTo: window.location.href,
+                queryParams: {
+                    access_type: 'offline',
+                    prompt: 'consent'
+                }
             }
         });
 
@@ -200,7 +257,11 @@ function openAuthModal(mode = 'login') {
     const modal = document.getElementById('authModal');
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
+    const completeProfileForm = document.getElementById('completeProfileForm');
     const modalTitle = document.getElementById('authModalTitle');
+    const googleBtn = document.getElementById('googleLoginBtn');
+    const authDivider = document.querySelector('.auth-divider');
+    const closeBtn = modal ? modal.querySelector('.auth-modal-close') : null;
 
     if (modal) {
         modal.classList.add('active');
@@ -210,10 +271,26 @@ function openAuthModal(mode = 'login') {
             modalTitle.textContent = 'Login';
             loginForm.style.display = 'block';
             registerForm.style.display = 'none';
-        } else {
+            if (completeProfileForm) completeProfileForm.style.display = 'none';
+            if (googleBtn) googleBtn.style.display = 'flex';
+            if (authDivider) authDivider.style.display = 'flex';
+            if (closeBtn) closeBtn.style.display = 'flex';
+        } else if (mode === 'register') {
             modalTitle.textContent = 'Register';
             loginForm.style.display = 'none';
             registerForm.style.display = 'block';
+            if (completeProfileForm) completeProfileForm.style.display = 'none';
+            if (googleBtn) googleBtn.style.display = 'flex';
+            if (authDivider) authDivider.style.display = 'flex';
+            if (closeBtn) closeBtn.style.display = 'flex';
+        } else if (mode === 'complete-profile') {
+            modalTitle.textContent = 'Add Student ID';
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'none';
+            if (completeProfileForm) completeProfileForm.style.display = 'block';
+            if (googleBtn) googleBtn.style.display = 'none';
+            if (authDivider) authDivider.style.display = 'none';
+            if (closeBtn) closeBtn.style.display = 'none';
         }
     }
 }
@@ -314,6 +391,40 @@ async function handleRegister(e) {
     } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Register';
+    }
+}
+
+async function handleCompleteProfile(e) {
+    e.preventDefault();
+    clearAuthErrors();
+
+    const studentId = document.getElementById('completeStudentId').value;
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+
+    try {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Saving...';
+
+        await Auth.updateStudentId(studentId);
+        showAuthSuccess('Student ID saved successfully.');
+
+        setTimeout(() => {
+            closeAuthModal();
+        }, 600);
+    } catch (error) {
+        showAuthError(error.message || 'Failed to save Student ID. Please try again.');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Save Student ID';
+    }
+}
+
+async function handleProfileLogout() {
+    try {
+        await Auth.logout();
+        closeAuthModal();
+    } catch (error) {
+        console.error('Logout error:', error);
     }
 }
 

@@ -39,6 +39,18 @@
                     <a href="#" onclick="switchAuthMode('register'); return false;">Register</a>
                 </p>
             </form>
+            
+                <!-- Complete Profile Form (Google OAuth) -->
+                <form id="completeProfileForm" style="display: none;" onsubmit="handleCompleteProfile(event)">
+                    <p class="auth-switch">Please add your Student ID to continue.</p>
+                    <div class="form-group">
+                        <label for="completeStudentId">Student ID</label>
+                        <input type="text" id="completeStudentId" required placeholder="At least 10 digits"
+                            pattern="\d{10,}">
+                    </div>
+                    <button type="submit" class="auth-submit-btn">Save Student ID</button>
+                    <button type="button" class="auth-secondary-btn" onclick="handleProfileLogout()">Logout</button>
+                </form>
 
             <!-- Register Form -->
             <form id="registerForm" style="display: none;" onsubmit="handleRegister(event)">

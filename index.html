@@ -10,7 +10,7 @@
 
     <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
+
     <!-- SUPABASE -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -25,7 +25,7 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <h2 id="authModalTitle">Login</h2>
-            
+
             <div id="authError" class="auth-error"></div>
             <div id="authSuccess" class="auth-success"></div>
 
@@ -34,10 +34,22 @@
                 <i class="fa-brands fa-google"></i>
                 Continue with Google
             </button>
-            
+
             <div class="auth-divider">
                 <span>or continue with email</span>
             </div>
+
+            <!-- Complete Profile Form (Google OAuth) -->
+            <form id="completeProfileForm" style="display: none;" onsubmit="handleCompleteProfile(event)">
+                <p class="auth-switch">Please add your Student ID to continue.</p>
+                <div class="form-group">
+                    <label for="completeStudentId">Student ID</label>
+                    <input type="text" id="completeStudentId" required placeholder="At least 10 digits"
+                        pattern="\d{10,}">
+                </div>
+                <button type="submit" class="auth-submit-btn">Save Student ID</button>
+                <button type="button" class="auth-secondary-btn" onclick="handleProfileLogout()">Logout</button>
+            </form>
 
             <!-- Login Form -->
             <form id="loginForm" onsubmit="handleLogin(event)">
@@ -51,7 +63,7 @@
                 </div>
                 <button type="submit" class="auth-submit-btn">Login</button>
                 <p class="auth-switch">
-                    Don't have an account? 
+                    Don't have an account?
                     <a href="#" onclick="switchAuthMode('register'); return false;">Register</a>
                 </p>
             </form>
@@ -60,7 +72,8 @@
             <form id="registerForm" style="display: none;" onsubmit="handleRegister(event)">
                 <div class="form-group">
                     <label for="registerStudentId">Student ID</label>
-                    <input type="text" id="registerStudentId" required placeholder="At least 10 digits" pattern="\d{10,}">
+                    <input type="text" id="registerStudentId" required placeholder="At least 10 digits"
+                        pattern="\d{10,}">
                 </div>
                 <div class="form-group">
                     <label for="registerEmail">Email</label>
@@ -76,7 +89,7 @@
                 </div>
                 <button type="submit" class="auth-submit-btn">Register</button>
                 <p class="auth-switch">
-                    Already have an account? 
+                    Already have an account?
                     <a href="#" onclick="switchAuthMode('login'); return false;">Login</a>
                 </p>
             </form>
@@ -118,7 +131,7 @@
             <div class="top-auth-bar">
                 <!-- Mobile Menu Button -->
                 <button class="mobile-menu-button" id="mobileMenuToggle">☰</button>
-                
+
                 <!-- Auth Section -->
                 <div class="auth-section">
                     <button class="auth-btn" id="authBtn" onclick="openAuthModal('login')">
@@ -164,35 +177,61 @@
                                 alt="UITS Cyber Security Wing">
                             <span>UITS Cyber Security Wing</span>
                         </a>
-                        <a href="https://university-companion.netlify.app/" class="marquee-item" target="_blank">
+                        <a href="https://foxxie911.github.io/FoxxieBlog/articles/2026/FEBRUARY/FAQonCapstoneProject.html"
+                            class="marquee-item" target="_blank">
                             <div class="marquee-placeholder"><i class="fa-solid fa-book"></i></div>
-                            <span>University Companion</span>
+                            <span>FAQ on Capstone Project</span>
                         </a>
                         <a href="https://b1tacad.netlify.app/" class="marquee-item" target="_blank">
-                            <div class="marquee-placeholder"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <div class="marquee-placeholder">
+                                <!-- <i class="fa-solid fa-graduation-cap"></i> -->
+                                <img src="materials-icon/b1t-acad.webp">
+                            </div>
                             <span>b1t Academics</span>
                         </a>
                         <a href="https://bd-ou1ts.netlify.app/" class="marquee-item" target="_blank">
-                            <img src="logo-bd.png" alt="Blood Donation Network">
+                            <img src="tools-icon/logo-bd.png" alt="Blood Donation Network">
                             <span>Blood Donation Network</span>
                         </a>
-                        <a href="https://b1tsched.netlify.app/" class="marquee-item" target="_blank">
-                            <div class="marquee-placeholder"><i class="fa-solid fa-calendar"></i></div>
-                            <span>b1t Scheduler</span>
+                        <a href="https://www.facebook.com/groups/sfuits" class="marquee-item" target="_blank">
+                            <div class="marquee-placeholder">
+                                <!-- <i class="fa-solid fa-calendar"></i> -->
+                                <img src="community-icon/sfuits-fb.webp">
+                            </div>
+                            <span>Students Forum of UITS</span>
                         </a>
+
+                        <!-- ################################################ -->
                         <!-- Duplicate for seamless loop -->
+                        <!-- ################################################ -->
+
                         <a href="https://uitssec.github.io/" class="marquee-item" target="_blank">
                             <img src="https://res.cloudinary.com/djsa2kkyu/image/upload/v1757773769/nobg_UITS_Cyber_Security_Wing_FB_logo_admu5c.png"
                                 alt="UITS Cyber Security Wing">
                             <span>UITS Cyber Security Wing</span>
                         </a>
-                        <a href="https://university-companion.netlify.app/" class="marquee-item" target="_blank">
+                        <a href="https://foxxie911.github.io/FoxxieBlog/articles/2026/FEBRUARY/FAQonCapstoneProject.html"
+                            class="marquee-item" target="_blank">
                             <div class="marquee-placeholder"><i class="fa-solid fa-book"></i></div>
-                            <span>University Companion</span>
+                            <span>FAQ on Capstone Project</span>
                         </a>
                         <a href="https://b1tacad.netlify.app/" class="marquee-item" target="_blank">
-                            <div class="marquee-placeholder"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <div class="marquee-placeholder">
+                                <!-- <i class="fa-solid fa-graduation-cap"></i> -->
+                                <img src="materials-icon/b1t-acad.webp">
+                            </div>
                             <span>b1t Academics</span>
+                        </a>
+                        <a href="https://bd-ou1ts.netlify.app/" class="marquee-item" target="_blank">
+                            <img src="tools-icon/logo-bd.png" alt="Blood Donation Network">
+                            <span>Blood Donation Network</span>
+                        </a>
+                        <a href="https://www.facebook.com/groups/sfuits" class="marquee-item" target="_blank">
+                            <div class="marquee-placeholder">
+                                <!-- <i class="fa-solid fa-calendar"></i> -->
+                                <img src="community-icon/sfuits-fb.webp">
+                            </div>
+                            <span>Students Forum of UITS</span>
                         </a>
                     </div>
                 </div>
@@ -365,7 +404,8 @@
             <div class="hero-badge"
                 style="display: flex;justify-content: center;align-items: center;width: fit-content;margin: auto;">
                 <i class="fa-solid fa-link"></i>
-                <span class="repo-info" ><a href="https://github.com/b1tranger/ou1ts.portal" target="_blank">Source Code</a></span>
+                <span class="repo-info"><a href="https://github.com/b1tranger/ou1ts.portal" target="_blank">Source
+                        Code</a></span>
                 <span class="badge-dot"></span>
             </div>
             <br>

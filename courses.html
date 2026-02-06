@@ -23,6 +23,18 @@
             <div id="authError" class="auth-error"></div>
             <div id="authSuccess" class="auth-success"></div>
 
+            <!-- Complete Profile Form (Google OAuth) -->
+            <form id="completeProfileForm" style="display: none;" onsubmit="handleCompleteProfile(event)">
+                <p class="auth-switch">Please add your Student ID to continue.</p>
+                <div class="form-group">
+                    <label for="completeStudentId">Student ID</label>
+                    <input type="text" id="completeStudentId" required placeholder="At least 10 digits"
+                        pattern="\d{10,}">
+                </div>
+                <button type="submit" class="auth-submit-btn">Save Student ID</button>
+                <button type="button" class="auth-secondary-btn" onclick="handleProfileLogout()">Logout</button>
+            </form>
+
             <!-- Login Form -->
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">

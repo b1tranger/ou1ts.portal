@@ -142,6 +142,7 @@ A dynamic page that fetches contributor data from Google Sheets in real-time.
 The portal includes a user authentication system with Supabase that allows students to:
 - Register with Student ID (10+ digits), email, and password
 - Login/logout across all pages
+- Complete Student ID after Google OAuth (mandatory)
 - Star resources to show appreciation
 - See resources ranked by popularity (star count)
 
@@ -160,15 +161,18 @@ The portal includes a user authentication system with Supabase that allows stude
 2. Modal appears with authentication options:
    - **Google OAuth** (recommended) - One-click sign in, no email verification needed
    - **Email/Password** - Traditional registration with Student ID
-3. **Google Login:** Click "Continue with Google" → Select Google account → Done
-4. **Register:** Student ID (10+ digits) + Email + Password
-5. **Login:** Email + Password
-6. On success, user info displayed in header
-7. Session persists across pages via Supabase
+3. **Google Login:** Click "Continue with Google" → Select Google account
+4. **Required Step:** User must enter Student ID (10+ digits) in the prompt
+  - If they do not want to add it, they can choose **Logout**
+5. **Register:** Student ID (10+ digits) + Email + Password
+6. **Login:** Email + Password
+7. On success, user info displayed in header
+8. Session persists across pages via Supabase
 
 ### Google OAuth (Recommended)
 
 Google OAuth bypasses Supabase's email rate limits and provides a faster login experience.
+After OAuth sign-in, users must add their Student ID to complete their profile.
 
 | Benefit | Description |
 |---------|-------------|
@@ -242,7 +246,7 @@ In Supabase SQL Editor, run:
 -- Create profiles table
 CREATE TABLE public.profiles (
   id UUID REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
-  student_id TEXT UNIQUE NOT NULL,
+  student_id TEXT,  -- Nullable to support OAuth users
   email TEXT NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -271,6 +275,9 @@ CREATE POLICY "Users can view own profile" ON public.profiles
 CREATE POLICY "Users can update own profile" ON public.profiles
   FOR UPDATE USING (auth.uid() = id);
 
+CREATE POLICY "Service role can insert profiles" ON public.profiles
+  FOR INSERT WITH CHECK (true);
+
 -- Stars policies  
 CREATE POLICY "Anyone can view star counts" ON public.stars
   FOR SELECT USING (true);
@@ -288,7 +295,7 @@ BEGIN
   INSERT INTO public.profiles (id, student_id, email)
   VALUES (
     NEW.id,
-    NEW.raw_user_meta_data->>'student_id',
+    COALESCE(NEW.raw_user_meta_data->>'student_id', 'OAUTH_USER'),
     NEW.email
   );
   RETURN NEW;

@@ -23,6 +23,18 @@
             <div id="authError" class="auth-error"></div>
             <div id="authSuccess" class="auth-success"></div>
 
+            <!-- Complete Profile Form (Google OAuth) -->
+            <form id="completeProfileForm" style="display: none;" onsubmit="handleCompleteProfile(event)">
+                <p class="auth-switch">Please add your Student ID to continue.</p>
+                <div class="form-group">
+                    <label for="completeStudentId">Student ID</label>
+                    <input type="text" id="completeStudentId" required placeholder="At least 10 digits"
+                        pattern="\d{10,}">
+                </div>
+                <button type="submit" class="auth-submit-btn">Save Student ID</button>
+                <button type="button" class="auth-secondary-btn" onclick="handleProfileLogout()">Logout</button>
+            </form>
+
             <!-- Login Form -->
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
@@ -107,7 +119,7 @@
                 </div>
                 <div class="project-info">
                     <h3>UITS Bot</h3>
-                    <p class="repo-info">Simple website for notes, class routine, notice and other academic tools for UITS students. | <a href="https://github.com/AkibReza/uitsBOT" target="_blank">Source Code</a></p>
+                    <p class="repo-info">This is a utility website where students can check their cgpa for each semester,  see class routines in a formatted way, and find handwritten notes from previous batch students.<br><a href="https://github.com/AkibReza/uitsBOT" target="_blank">Source Code</a></p>
                 </div>
                 <div class="project-actions">
                     <button class="star-btn disabled" onclick="Stars.toggleStar('materials-uitsbot')" title="Login to star resources">
@@ -126,11 +138,12 @@
             <div class="project-item" data-resource-id="materials-b1tsched">
                 <span class="project-number">02</span>
                 <div class="project-icon" style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9);">
-                    <i class="fa-solid fa-calendar-days" style="color: #388e3c;"></i>
+                    <!-- <i class="fa-solid fa-calendar-days" style="color: #388e3c;"></i> -->
+                     <img src="materials-icon/b1t-sched.webp">
                 </div>
                 <div class="project-info">
                     <h3>b1t Scheduler</h3>
-                    <p>https://b1tsched.netlify.app/</p>
+                    <p>lightweight, centralized academic assistant that allows students to view their schedules, track tasks, and access academic information efficiently.</p>
                 </div>
                 <div class="project-actions">
                     <button class="star-btn disabled" onclick="Stars.toggleStar('materials-b1tsched')" title="Login to star resources">
@@ -149,11 +162,13 @@
             <div class="project-item" data-resource-id="materials-b1tacad">
                 <span class="project-number">03</span>
                 <div class="project-icon" style="background: linear-gradient(135deg, #f3e5f5, #e1bee7);">
-                    <i class="fa-solid fa-graduation-cap" style="color: #7b1fa2;"></i>
+                    <!-- <i class="fa-solid fa-graduation-cap" style="color: #7b1fa2;"></i> -->
+                     <img src="materials-icon/b1t-acad.webp">
                 </div>
+
                 <div class="project-info">
                     <h3>b1t Academics</h3>
-                    <p>https://b1tacad.netlify.app/</p>
+                    <p>b1t Academics is a comprehensive, student-maintained archive for UITS (University) resources. It serves as a central hub for course materials, question banks, class routines, and academic guidelines, aiming to solve the fragmentation of resources across different platforms.</p>
                 </div>
                 <div class="project-actions">
                     <button class="star-btn disabled" onclick="Stars.toggleStar('materials-b1tacad')" title="Login to star resources">
@@ -176,7 +191,7 @@
                 </div>
                 <div class="project-info">
                     <h3>University Companion</h3>
-                    <p>https://university-companion.netlify.app/</p>
+                    <p>In this website, you will find the Academic calendar and the previous years' exam questions of the previous batches of CSE department, UITS. We also added an interactive scheduler where students can update their class records for each week.</p>
                 </div>
                 <div class="project-actions">
                     <button class="star-btn disabled" onclick="Stars.toggleStar('materials-uniCompanion')" title="Login to star resources">
