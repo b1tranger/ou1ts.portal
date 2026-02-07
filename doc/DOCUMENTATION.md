@@ -333,6 +333,32 @@ CREATE TRIGGER on_auth_user_created
 3. Paste **Client ID** and **Client Secret**
 4. Save
 
+### 7. Troubleshooting OAuth Login Issues
+
+If Google OAuth fails with **"Database error saving new user"**, run the fix scripts in order:
+
+#### Script 1: Core OAuth Fix (`supabase_fix.sql`)
+Fixes the trigger to handle OAuth users correctly:
+```sql
+-- Run this first - updates trigger, makes student_id nullable
+ALTER TABLE public.profiles ALTER COLUMN student_id DROP NOT NULL;
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+DROP FUNCTION IF EXISTS public.handle_new_user();
+-- ... (see supabase_fix.sql for complete script)
+```
+
+#### Script 2: Constraint Fix (`supabase_constraint_fix.sql`)
+Fixes "duplicate key value violates unique constraint" error:
+```sql
+-- Run this if you see duplicate OAUTH_USER errors
+ALTER TABLE public.profiles DROP CONSTRAINT IF EXISTS profiles_student_id_key;
+CREATE UNIQUE INDEX IF NOT EXISTS profiles_student_id_unique
+  ON public.profiles (student_id)
+  WHERE student_id IS NOT NULL AND student_id <> 'OAUTH_USER';
+```
+
+**Why?** Multiple OAuth users can't all have `student_id = 'OAUTH_USER'` with a UNIQUE constraint. The partial index allows duplicates of 'OAUTH_USER' while keeping real student IDs unique.
+
 ### Database Schema
 
 ```

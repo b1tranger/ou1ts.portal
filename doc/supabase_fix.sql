@@ -28,6 +28,7 @@ CREATE TRIGGER on_auth_user_created
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
 
 -- Step 5: Add INSERT policy for profiles (required for trigger to work)
+DROP POLICY IF EXISTS "Service role can insert profiles" ON public.profiles;
 CREATE POLICY "Service role can insert profiles" ON public.profiles
   FOR INSERT WITH CHECK (true);
 
