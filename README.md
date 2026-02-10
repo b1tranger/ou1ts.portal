@@ -21,7 +21,9 @@ This project is an Academic Resources Portal called "oU1TS Portal" designed to s
 
 <h1 align=center>👉 <a href="https://github.com/b1tranger/ou1ts.portal/blob/main/doc/DOCUMENTATION.md">DOCUMENTATION</a> 👈</h1>
 
-
+### # References:
+- https://o-u1ts-portal.vercel.app/ |[Mahfuz5634/oU1TS-Portal](https://github.com/Mahfuz5634/oU1TS-Portal)
+- https://uiulinks.vercel.app/
 
 <br><br><br><br>
 
