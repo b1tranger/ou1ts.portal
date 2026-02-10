@@ -1,4 +1,4 @@
-### # oU1TS portal
+=### # oU1TS portal
 
 This project is an Academic Resources Portal called "oU1TS Portal" designed to serve as a centralized hub for UITS students to discover and access academic resources, projects, and community platforms. 
 - The portal's primary purpose is to make it easy for students to find study materials, useful tools, course repositories, guidance tutorials, and social groups all in one place through an organized category-based navigation system.
@@ -22,7 +22,7 @@ This project is an Academic Resources Portal called "oU1TS Portal" designed to s
 <h1 align=center>👉 <a href="https://github.com/b1tranger/ou1ts.portal/blob/main/doc/DOCUMENTATION.md">DOCUMENTATION</a> 👈</h1>
 
 ### # References:
-- https://o-u1ts-portal.vercel.app/ |[Mahfuz5634/oU1TS-Portal](https://github.com/Mahfuz5634/oU1TS-Portal)
+- https://o-u1ts-portal.vercel.app/ | [Mahfuz5634/oU1TS-Portal](https://github.com/Mahfuz5634/oU1TS-Portal)
 - https://uiulinks.vercel.app/
 
 <br><br><br><br>
