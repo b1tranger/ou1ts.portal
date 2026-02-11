@@ -636,6 +636,17 @@ const SHEET_ID = 'your-new-sheet-id-here';
   - `index.html`, `tools.html`, `portfolios.html`, `guidance.html` - Google button in auth modals
 - **Setup Required:** Google Cloud Console OAuth credentials + Supabase provider configuration
 
+### v3.3 - Courses Star Button Fix
+- **Bug Fix:** Fixed "Failed to update star" error on `courses.html` caused by `resource_type` being null
+- **Root Cause:** The original `Stars` module from `stars.js` was being invoked instead of `CoursesStars`, and its `resourceType` was never initialized
+- **Solution:**
+  - Added `loadStars()` method alias to `CoursesStars` for compatibility with `auth.js` (which calls `Stars.loadStars()` after login)
+  - Set `resourceType = 'courses'` on the original `Stars` object as a fallback
+  - Added user-facing error alert in `toggleStar()` catch block
+- **HTML Structure Fix:** Consolidated repo-items into single `.course-content` divs for courses with multiple repositories (SESA Lab, Computer Graphics Lab)
+  - Previously each repo-item was in its own `.course-content`, preventing sorting from working
+  - Now all items within a course section share one `.course-content` for proper star-based ranking
+
 ---
 
 ## Credits

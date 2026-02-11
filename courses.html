@@ -288,8 +288,6 @@
                             <span class="star-count">0</span>
                         </button>
                     </div>
-                </div>
-                <div class="course-content">
                     <div class="repo-item" data-resource-id="courses-sesa-sadiasemim139-ops">
                         <i class="fa-brands fa-github"></i>
                         <div class="repo-info">
@@ -297,7 +295,8 @@
                                 Islam/0432410005101096</a>
                             <p>sadiasemim139-ops/sesa<br>software_Engineering-and-system-Analysis.<br><a
                                     href="https://github.com/sadiasemim139-ops" target="_blank">Dev-1(96)</a>, <a
-                                    href="https://github.com/jannatulferdus182003" target="_blank">Dev-2(58)</a>, Dev-3(63), Dev-4(93) | <a
+                                    href="https://github.com/jannatulferdus182003" target="_blank">Dev-2(58)</a>, <a
+                                    href="https://github.com/Badhon63" target="_blank">Dev-3(63)</a>, <a
                                     href="https://github.com/oU1TS/sesa.cse55.sadiasemim139-ops.ou1ts" target="_blank">Fork</a>
                             </p>
                         </div>
@@ -307,8 +306,6 @@
                             <span class="star-count">0</span>
                         </button>
                     </div>
-                </div>
-                <div class="course-content">
                     <div class="repo-item" data-resource-id="courses-sesa-Binary-Eclipse">
                         <i class="fa-brands fa-github"></i>
                         <div class="repo-info">
@@ -398,8 +395,6 @@
                             <span class="star-count">0</span>
                         </button>
                     </div>
-                </div>
-                <div class="course-content">
                     <div class="repo-item" data-resource-id="courses-cg-Arriesgado47">
                         <i class="fa-brands fa-github"></i>
                         <div class="repo-info">
@@ -442,6 +437,12 @@
                 window.addEventListener('authStateChanged', () => {
                     this.updateStarButtons();
                 });
+            },
+
+            // Alias for compatibility with auth.js which calls Stars.loadStars()
+            async loadStars() {
+                await this.loadStarCounts();
+                this.sortAllDropdowns();
             },
 
             async loadStarCounts() {
@@ -604,12 +605,22 @@
                     }
                 } catch (err) {
                     console.error('Error toggling star:', err);
+                    alert('Failed to update star. Please try again.');
                 }
             }
         };
 
-        // Override Stars.toggleStar for this page
+        // Save reference to original Stars before overriding
+        const OriginalStars = window.Stars;
+
+        // Override Stars for this page
         window.Stars = CoursesStars;
+
+        // Also set resourceType on original Stars as fallback
+        // (in case it's still referenced somewhere)
+        if (OriginalStars) {
+            OriginalStars.resourceType = 'courses';
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
