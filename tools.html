@@ -19,7 +19,7 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <h2 id="authModalTitle">Login</h2>
-            
+
             <div id="authError" class="auth-error"></div>
             <div id="authSuccess" class="auth-success"></div>
 
@@ -28,7 +28,7 @@
                 <i class="fa-brands fa-google"></i>
                 Continue with Google
             </button>
-            
+
             <div class="auth-divider">
                 <span>or continue with email</span>
             </div>
@@ -57,7 +57,7 @@
                 </div>
                 <button type="submit" class="auth-submit-btn">Login</button>
                 <p class="auth-switch">
-                    Don't have an account? 
+                    Don't have an account?
                     <a href="#" onclick="switchAuthMode('register'); return false;">Register</a>
                 </p>
             </form>
@@ -66,7 +66,8 @@
             <form id="registerForm" style="display: none;" onsubmit="handleRegister(event)">
                 <div class="form-group">
                     <label for="registerStudentId">Student ID</label>
-                    <input type="text" id="registerStudentId" required placeholder="At least 10 digits" pattern="\\d{10,}">
+                    <input type="text" id="registerStudentId" required placeholder="At least 10 digits"
+                        pattern="\\d{10,}">
                 </div>
                 <div class="form-group">
                     <label for="registerEmail">Email</label>
@@ -82,7 +83,7 @@
                 </div>
                 <button type="submit" class="auth-submit-btn">Register</button>
                 <p class="auth-switch">
-                    Already have an account? 
+                    Already have an account?
                     <a href="#" onclick="switchAuthMode('login'); return false;">Login</a>
                 </p>
             </form>
@@ -131,31 +132,38 @@
                     <p>Hands‑free mouse and system control using real‑time AI hand tracking.</p>
                 </div>
                 <div class="project-actions">
-                    <button class="star-btn disabled" onclick="Stars.toggleStar('tools-handgesture')" title="Login to star resources">
+                    <button class="star-btn disabled" onclick="Stars.toggleStar('tools-handgesture')"
+                        title="Login to star resources">
                         <i class="fa-solid fa-star"></i>
                         <span class="star-count">0</span>
                     </button>
-                    <a href="https://github.com/SoyebAkram/Hand_Gesture_control__system" class="visit-btn" target="_blank">
+                    <a href="https://github.com/SoyebAkram/Hand_Gesture_control__system" class="visit-btn"
+                        target="_blank">
                         Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
                     </a>
-                    <button class="copy-btn" onclick="copyLink('https://github.com/SoyebAkram/Hand_Gesture_control__system')">
+                    <button class="copy-btn"
+                        onclick="copyLink('https://github.com/SoyebAkram/Hand_Gesture_control__system')">
                         <i class="fa-regular fa-copy"></i>
                     </button>
                 </div>
             </div>
-                                   
+
             <div class="project-item" data-resource-id="tools-blooddonation">
                 <span class="project-number">02</span>
                 <div class="project-icon" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb);">
                     <!-- <i class="fa-solid fa-robot" style="color: #1976d2;"></i> -->
-                     <img src="tools-icon/logo-bd.png">
+                    <img src="tools-icon/logo-bd.png">
                 </div>
                 <div class="project-info">
                     <h3>Blood Donation Network - UITS</h3>
-                    <p> We intend to create a network of donators, under certain groups where people know each other. This network will have a list containing contact info and previous donation dates to make the Blood Reception faster for the requester. Your single donation can help save up to three lives. <br><br>Join our community of heroes today.</p>
+                    <p> We intend to create a network of donators, under certain groups where people know each other.
+                        This network will have a list containing contact info and previous donation dates to make the
+                        Blood Reception faster for the requester. Your single donation can help save up to three lives.
+                        <br><br>Join our community of heroes today.</p>
                 </div>
                 <div class="project-actions">
-                    <button class="star-btn disabled" onclick="Stars.toggleStar('tools-blooddonation')" title="Login to star resources">
+                    <button class="star-btn disabled" onclick="Stars.toggleStar('tools-blooddonation')"
+                        title="Login to star resources">
                         <i class="fa-solid fa-star"></i>
                         <span class="star-count">0</span>
                     </button>
@@ -167,8 +175,35 @@
                     </button>
                 </div>
             </div>
+            <div class="project-item" data-resource-id="tools-b1tsched">
+                <span class="project-number">02</span>
+                <div class="project-icon" style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9);">
+                    <!-- <i class="fa-solid fa-calendar-days" style="color: #388e3c;"></i> -->
+                    <img src="tools-icon/b1t-sched.webp">
+                </div>
+                <div class="project-info">
+                    <h3>b1t Scheduler</h3>
+                    <p class="repo-info">lightweight, centralized academic assistant that allows students to view their
+                        schedules, track tasks, and access academic information efficiently.<br><a
+                            href="https://github.com/b1tranger/b1t-Sched" target="_blank">Source Code</a> | <a
+                            href="https://github.com/b1tranger" target="_blank">Dev</a></p>
+                </div>
+                <div class="project-actions">
+                    <button class="star-btn disabled" onclick="Stars.toggleStar('tools-b1tsched')"
+                        title="Login to star resources">
+                        <i class="fa-solid fa-star"></i>
+                        <span class="star-count">0</span>
+                    </button>
+                    <a href="https://b1tsched.netlify.app/" class="visit-btn" target="_blank">
+                        Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button class="copy-btn" onclick="copyLink('https://b1tsched.netlify.app/')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
 
-           
+
         </div>
     </div>
 
