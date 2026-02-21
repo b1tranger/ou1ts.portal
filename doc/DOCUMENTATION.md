@@ -122,10 +122,16 @@ A dynamic page that fetches contributor data from Google Sheets in real-time.
 | **Loading State** | Spinner displayed while fetching data |
 | **Empty State** | Shown when no contributions exist |
 | **Error State** | Displayed if fetch fails |
+| **Recent Submissions** | Sliding panel showing the 10 most recent community contributions |
 
 **Modal Features:**
 - Click card to open
 - Click ✕, overlay, or press Escape to close
+- **Recent Submissions Panel:**
+  - Click "Recent Submissions" bell button to open
+  - Displays 10 most recent submissions in reverse chronological order
+  - Each item shows contributor name, resource title, and type
+  - **Clickable Type Badges**: Redirects to the corresponding category page
 - **Contact Information Section:**
   - Email (clickable mailto: link with envelope icon)
   - Social Links (clickable if URL, with link icon)
@@ -134,6 +140,20 @@ A dynamic page that fetches contributor data from Google Sheets in real-time.
   - Project Title
   - Project Type (as clickable badge linking to corresponding category page)
   - Project Link (clickable, opens in new tab)
+
+---
+
+### Progressive Web App (PWA)
+
+The portal is a fully functional Progressive Web App, allowing it to be installed on mobile and desktop devices.
+
+| Feature | Description |
+|---------|-------------|
+| **Installable** | Users can "Add to Home Screen" on Android/iOS via the browser menu |
+| **Offline Support** | Core assets are cached for offline access |
+| **Notifications** | Browser notifications for new resource submissions on the Contributors page |
+| **Theme Sync** | The PWA uses the `#1a1a2e` theme color to match the site's dark mode |
+| **Custom Icon** | High-quality portal icon used for app shortcuts and splash screen |
 
 ---
 
@@ -538,114 +558,24 @@ const SHEET_ID = 'your-new-sheet-id-here';
 
 ## Changelog
 
-### v2.0 - UIU LinkSphere Restructure
-- Restructured homepage with hero section and category cards
-- Added 6 new category pages (Materials, Tools, Community, Course Repos, Portfolios, Official UITS)
-- Added featured projects marquee with auto-scroll
-- Added Course Repositories with dropdown menus
-- Implemented responsive sidebar navigation
-- Preserved existing dark theme styling
+| Version | Feature / Change | Description |
+| :--- | :--- | :--- |
+| **v3.5** | **PWA & Notifications** | Enabled Progressive Web App (PWA) features including offline support, manifest installation, and browser notifications for new submissions. |
+| **v3.4** | **Recent Submissions** | Added a sliding panel showing the 10 most recent contributions with clickable category links and smooth animations. Fixed individual contributor modal content. |
+| **v3.3** | **Courses Star Fix** | Resolved "Failed to update star" error and consolidated repository items into single containers for proper star-based ranking. |
+| **v3.2** | **Google OAuth** | Integrated "Continue with Google" for faster login, avoiding email rate limits. Added Student ID requirement for OAuth users. |
+| **v3.1** | **Isolated Rankings** | Implemented per-dropdown star sorting for `courses.html`, ranking resources only within their respective course sections. |
+| **v3.0** | **Auth & Starring** | Major update: Supabase integration for Student ID authentication, resource starring, and auto-sorting by popularity. |
+| **v2.6** | **Guidance Page** | Added `guidance.html` for tutorials and tips, updated resource mapping. |
+| **v2.5** | **Resource Linking** | Connected resource type badges in contributor modals to their respective category pages (e.g., Tools -> `tools.html`). |
+| **v2.4** | **Modal Contact Info** | Added clickable contact info (Email/Socials) and department/batch subtitles to contributor modals. |
+| **v2.3** | **Enhanced Modal** | Cards now open modals showing all submitted resources for that contributor. |
+| **v2.2** | **Dynamic Fetching** | Linked the Contributors page to Google Sheets for real-time data updates from form submissions. |
+| **v2.1** | **Contributors Page** | Initial release of the `contributions.html` page to recognize student submitters. |
+| **v2.0** | **UIU Restructure** | Complete site redesign: hero section, category cards, featured marquee, and responsive navigation. |
 
-### v2.1 - Contributors Page
-- Added `contributions.html` page to recognize resource submitters
-- Added Contributors category card to homepage under "Official UITS" with visual divider
-- Page design inspired by https://diuqbank.com/contributors/
-- Includes empty state and submit button
 
-### v2.2 - Google Sheets Integration
-- Contributors page now fetches data dynamically from Google Sheets
-- Auto-updates when new form submissions are added (on page refresh)
-- Groups contributors by name and displays submission count
-- Shows Department and Batch info from form responses
-- Includes loading, empty, and error states
-- **Google Sheet ID**: `1oQ5Mkavjm62UGZwNjM-52yvKppWZHfX-Qpq6jtEVIOY`
 
-### v2.3 - Enhanced Contributors Page
-- Added Student Education Email display on contributor cards
-- Added clickable cards that open a modal popup
-- Modal shows all resources submitted by the contributor:
-  - Project Title
-  - Project Type (as badge)
-  - Project Link (clickable, opens in new tab)
-- Modal can be closed via ✕ button, clicking overlay, or pressing Escape
-- Improved data handling to store all submissions per contributor
-- Updated column mapping to include project details (columns 6, 7, 8)
-
-### v2.4 - Modal Contact Information
-- Modal now displays Contact Information section with:
-  - Student Education Email (clickable mailto: link)
-  - Social Links (clickable if URL format detected)
-- Department and Batch shown as subtitle in modal header
-- Added styled contact info card with icons
-- Fallback message when no contact information is provided
-- Resources section now has dedicated header
-
-### v2.5 - Resource Type Linking
-- Resource type badges in modal popup are now clickable links
-- Clicking a resource type (e.g., "Tools") navigates to the corresponding category page (e.g., `tools.html`)
-- Supported resource types with page mappings:
-  - Tools → `tools.html`
-  - Courses → `courses.html`
-  - Materials → `materials.html`
-  - Community → `community.html`
-  - Official → `official.html`
-  - Portfolio/Portfolios → `portfolios.html`
-  - Guidance → `guidance.html`
-- Added hover effect styling for resource type links
-- Falls back to non-clickable badge if resource type doesn't match any category
-
-### v2.6 - Guidance Page
-- Added new `guidance.html` category page for tips and tutorials
-- Added Guidance category card to homepage (light blue theme with lightbulb icon)
-- Added Guidance to resource type mappings in contributors page
-
-### v3.0 - Authentication & Starring System
-- **Backend Integration:** Added Supabase for authentication and database
-- **User Registration:** Students can register with Student ID (10+ digits), email, and password
-- **Login/Logout:** Session-based authentication across all pages
-- **User Display:** Shows Student ID and email in header when logged in
-- **Resource Starring:** Logged-in users can star/unstar any resource
-- **Star Counts:** Visible star count on each resource
-- **Ranking System:** Resources automatically sorted by star count (most popular first)
-- **Auth Modal:** Unified login/register modal with form validation
-- **New Files:**
-  - `js/supabase-config.js` - Supabase client configuration
-  - `js/auth.js` - Authentication module
-  - `js/stars.js` - Starring and ranking module
-- **Updated Pages:** All category pages now include auth UI and star buttons
-- **New CSS:** Auth modal styles, star button styles, header actions
-- **Database:** PostgreSQL via Supabase with Row Level Security
-
-### v3.1 - Per-Dropdown Ranking for Courses
-- **Course Repos Fix:** Fixed dropdown content not displaying properly
-- **Per-Dropdown Sorting:** Resources in `courses.html` now rank by stars within each dropdown section independently
-- **CoursesStars Module:** Custom inline module replacing global `Stars` for course-specific behavior
-- **Isolated Rankings:** Star counts and sorting only affect items within the same course dropdown, not the entire page
-
-### v3.2 - Google OAuth Integration
-- **Google OAuth:** Added "Continue with Google" button to auth modal
-- **Bypass Email Limits:** Google OAuth avoids Supabase email rate limits
-- **One-Click Login:** Users can sign in with their Google account instantly
-- **Auth Divider:** Added "or continue with email" divider between OAuth and email forms
-- **New UI Elements:**
-  - `.google-login-btn` - White button with Google icon and hover effects
-  - `.auth-divider` - Horizontal line with centered text
-- **Updated Files:**
-  - `js/auth.js` - Added `loginWithGoogle()` method and `handleGoogleLogin()` function
-  - `style.css` - Google button and divider styles
-  - `index.html`, `tools.html`, `portfolios.html`, `guidance.html` - Google button in auth modals
-- **Setup Required:** Google Cloud Console OAuth credentials + Supabase provider configuration
-
-### v3.3 - Courses Star Button Fix
-- **Bug Fix:** Fixed "Failed to update star" error on `courses.html` caused by `resource_type` being null
-- **Root Cause:** The original `Stars` module from `stars.js` was being invoked instead of `CoursesStars`, and its `resourceType` was never initialized
-- **Solution:**
-  - Added `loadStars()` method alias to `CoursesStars` for compatibility with `auth.js` (which calls `Stars.loadStars()` after login)
-  - Set `resourceType = 'courses'` on the original `Stars` object as a fallback
-  - Added user-facing error alert in `toggleStar()` catch block
-- **HTML Structure Fix:** Consolidated repo-items into single `.course-content` divs for courses with multiple repositories (SESA Lab, Computer Graphics Lab)
-  - Previously each repo-item was in its own `.course-content`, preventing sorting from working
-  - Now all items within a course section share one `.course-content` for proper star-based ranking
 
 ---
 

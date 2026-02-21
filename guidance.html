@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guidance - oU1TS Portal</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1a2e">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- SUPABASE -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -19,7 +21,7 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <h2 id="authModalTitle">Login</h2>
-            
+
             <div id="authError" class="auth-error"></div>
             <div id="authSuccess" class="auth-success"></div>
 
@@ -28,7 +30,7 @@
                 <i class="fa-brands fa-google"></i>
                 Continue with Google
             </button>
-            
+
             <div class="auth-divider">
                 <span>or continue with email</span>
             </div>
@@ -57,7 +59,7 @@
                 </div>
                 <button type="submit" class="auth-submit-btn">Login</button>
                 <p class="auth-switch">
-                    Don't have an account? 
+                    Don't have an account?
                     <a href="#" onclick="switchAuthMode('register'); return false;">Register</a>
                 </p>
             </form>
@@ -66,7 +68,8 @@
             <form id="registerForm" style="display: none;" onsubmit="handleRegister(event)">
                 <div class="form-group">
                     <label for="registerStudentId">Student ID</label>
-                    <input type="text" id="registerStudentId" required placeholder="At least 10 digits" pattern="\\d{10,}">
+                    <input type="text" id="registerStudentId" required placeholder="At least 10 digits"
+                        pattern="\\d{10,}">
                 </div>
                 <div class="form-group">
                     <label for="registerEmail">Email</label>
@@ -82,7 +85,7 @@
                 </div>
                 <button type="submit" class="auth-submit-btn">Register</button>
                 <p class="auth-switch">
-                    Already have an account? 
+                    Already have an account?
                     <a href="#" onclick="switchAuthMode('login'); return false;">Login</a>
                 </p>
             </form>
@@ -129,17 +132,23 @@
                 </div>
                 <div class="project-info">
                     <h3>FAQ on Capstone Project</h3>
-                    <p class="repo-info">foxxie's den/foxxie911.github.io | <a class="" href="https://github.com/user-attachments/files/25094431/foxxie911_github_io_FoxxieBlog_articles_2026_FEBRUARY_FAQonC.pdf">Backup</a><br>To address student anxiety regarding Capstone projects,<br>the author has compiled a quick FAQ guide.</p>
+                    <p class="repo-info">foxxie's den/foxxie911.github.io | <a class=""
+                            href="https://github.com/user-attachments/files/25094431/foxxie911_github_io_FoxxieBlog_articles_2026_FEBRUARY_FAQonC.pdf">Backup</a><br>To
+                        address student anxiety regarding Capstone projects,<br>the author has compiled a quick FAQ
+                        guide.</p>
                 </div>
                 <div class="project-actions">
-                    <button class="star-btn disabled" onclick="Stars.toggleStar('guidance-faq-capstone')" title="Login to star resources">
+                    <button class="star-btn disabled" onclick="Stars.toggleStar('guidance-faq-capstone')"
+                        title="Login to star resources">
                         <i class="fa-solid fa-star"></i>
                         <span class="star-count">0</span>
                     </button>
-                    <a href="https://foxxie911.github.io/FoxxieBlog/articles/2026/FEBRUARY/FAQonCapstoneProject.html" class="visit-btn" target="_blank">
+                    <a href="https://foxxie911.github.io/FoxxieBlog/articles/2026/FEBRUARY/FAQonCapstoneProject.html"
+                        class="visit-btn" target="_blank">
                         Visit <i class="fa-solid fa-arrow-up-right-from-square"></i>
                     </a>
-                    <button class="copy-btn" onclick="copyLink('https://foxxie911.github.io/FoxxieBlog/articles/2026/FEBRUARY/FAQonCapstoneProject.html')">
+                    <button class="copy-btn"
+                        onclick="copyLink('https://foxxie911.github.io/FoxxieBlog/articles/2026/FEBRUARY/FAQonCapstoneProject.html')">
                         <i class="fa-regular fa-copy"></i>
                     </button>
                 </div>
@@ -164,6 +173,7 @@
             }, 500);
         });
     </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
