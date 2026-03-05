@@ -766,6 +766,7 @@
 
                 // Group contributions by name
                 const contributorMap = new Map();
+                chronologicalSubmissions = []; // Clear previous submissions before populating
 
                 data.table.rows.forEach(row => {
                     if (!row.c) return;
@@ -1053,9 +1054,26 @@
         }
 
         // Recent Submissions Panel Functions
-        function showRecentSubmissions() {
+        async function showRecentSubmissions() {
             const panel = document.getElementById('recent-submissions-panel');
             const body = document.getElementById('recent-panel-body');
+
+            // Show panel first with loading state
+            panel.style.display = 'flex';
+            requestAnimationFrame(() => {
+                panel.classList.add('active');
+            });
+            document.body.style.overflow = 'hidden';
+
+            body.innerHTML = '<div style="text-align: center; padding: 2rem; color: #64b5f6;"><i class="fa-solid fa-spinner fa-spin fa-2x"></i><p style="margin-top: 1rem; color: #a0a0a0;">Fetching latest submissions...</p></div>';
+
+            try {
+                // Fetch fresh data
+                await fetchContributors();
+            } catch (err) {
+                body.innerHTML = '<p style="color: #ef5350; text-align: center; padding: 2rem;"><i class="fa-solid fa-circle-exclamation"></i> Error fetching updates.</p>';
+                return;
+            }
 
             // Take the last 10 submissions and reverse for most recent first
             const recent = chronologicalSubmissions.slice(-10).reverse();
@@ -1090,11 +1108,6 @@
                 }).join('');
             }
 
-            panel.style.display = 'flex';
-            requestAnimationFrame(() => {
-                panel.classList.add('active');
-            });
-            document.body.style.overflow = 'hidden';
         }
 
         function closeRecentPanel() {
