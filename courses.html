@@ -25,6 +25,16 @@
             <div id="authError" class="auth-error"></div>
             <div id="authSuccess" class="auth-success"></div>
 
+            <!-- Google OAuth Button -->
+            <button type="button" id="googleLoginBtn" class="google-login-btn" onclick="handleGoogleLogin()">
+                <i class="fa-brands fa-google"></i>
+                Continue with Google
+            </button>
+
+            <div class="auth-divider">
+                <span>or continue with email</span>
+            </div>
+
             <!-- Complete Profile Form (Google OAuth) -->
             <form id="completeProfileForm" style="display: none;" onsubmit="handleCompleteProfile(event)">
                 <p class="auth-switch">Please add your Student ID to continue.</p>
