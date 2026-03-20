@@ -35,6 +35,7 @@ ou1ts.portal/
 ├── contributions.html  # Contributors - Dynamic page with Google Sheets integration
 ├── style.css           # Main stylesheet (shared across all pages)
 ├── script.js           # JavaScript functionality (sidebar, mobile menu)
+├── inspirations.html   # Inspirations - Portals from other universities
 ├── js/                 # JavaScript modules
 │   ├── supabase-config.js  # Supabase client configuration
 │   ├── auth.js             # Authentication logic (login, register, logout)
@@ -56,7 +57,7 @@ The main landing page with the following sections:
 |---------|-------------|
 | **Hero Section** | Portal title "oU1TS Portal", tagline, and "Submit Resource" button linking to Google Form |
 | **Featured Projects Marquee** | Horizontal auto-scrolling showcase of highlighted student projects |
-| **Category Cards** | 8 clickable cards linking to category pages (Materials, Tools, Community, Course Repos, Portfolios, Official UITS, Guidance, Contributors) |
+| **Category Cards** | 9 clickable cards linking to category pages (Materials, Tools, Community, Course Repos, Portfolios, Official UITS, Guidance, Inspirations, Contributors) |
 | **About Section** | Description of the oU1TS initiative |
 | **Socials Section** | Links to Facebook, Telegram, Discord, GitHub, Reddit |
 | **App Download** | QR code for the mobile app version (v2.0) |
@@ -89,9 +90,10 @@ Each category page follows a consistent structure:
 | `materials.html` | Materials | 🎓 Graduation Cap | Google Drive links, study resources, notes |
 | `tools.html` | Tools | 📖 Book Open | Student-made tools and utilities |
 | `community.html` | Community | 🔗 Share Nodes | Social groups, Facebook groups, Discord servers |
-| `portfolios.html` | Portfolios | 👤 User | Student portfolio showcases |
+| `portfolios.html` | Portfolios | 👤 User | Student portfolio showcases with **Core Expertise Tags** |
 | `courses.html` | Course Repos | 📦 GitHub | GitHub repositories organized by course with dropdown menus |
 | `guidance.html` | Guidance | 💡 Lightbulb | Tips, tutorials, and helpful guides |
+| `inspirations.html` | Inspirations | ✨ Magic Wand | Portals from other universities (UIU, DIU) |
 
 **Common Features:**
 - Back button → returns to `index.html`
@@ -416,6 +418,9 @@ stars
     <div class="project-info">
         <h3>Resource Title</h3>
         <p>https://example.com/</p>
+        <div class="expertise-tags">
+            <span class="expertise-tag">Core Expertise</span>
+        </div>
     </div>
     <div class="project-actions">
         <button class="star-btn disabled" onclick="Stars.toggleStar('category-unique-id')" title="Login to star resources">
@@ -560,6 +565,8 @@ const SHEET_ID = 'your-new-sheet-id-here';
 
 | Version | Feature / Change | Description |
 | :--- | :--- | :--- |
+| **v3.7** | **Inspirations & Style Fixes** | Added `inspirations.html` with project portals from UIU/DIU. Added "All Courses" section to `courses.html`. Fixed scrollbar display and word-wrapping for long links. |
+| **v3.6** | **Portfolio Expertise Tags** | Added core expertise tags (e.g., Full Stack, Cybersecurity, Backend) to each entry in `portfolios.html` for better categorization and visibility. |
 | **v3.5** | **PWA & Notifications** | Enabled Progressive Web App (PWA) features including offline support, manifest installation, and browser notifications for new submissions. |
 | **v3.4** | **Recent Submissions** | Added a sliding panel showing the 10 most recent contributions with clickable category links and smooth animations. Fixed individual contributor modal content. |
 | **v3.3** | **Courses Star Fix** | Resolved "Failed to update star" error and consolidated repository items into single containers for proper star-based ranking. |

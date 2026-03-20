@@ -1840,3 +1840,30 @@ body {
         display: none;
     }
 }
+
+/* Base Expertise Tags Styles */
+.expertise-tags {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.expertise-tag {
+    background: rgba(100, 181, 246, 0.1);
+    color: #90caf9;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    border: 1px solid rgba(100, 181, 246, 0.2);
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.expertise-tag:hover {
+    background: rgba(100, 181, 246, 0.2);
+    border-color: rgba(100, 181, 246, 0.4);
+    transform: translateY(-1px);
+}
