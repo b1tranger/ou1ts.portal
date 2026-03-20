@@ -4,7 +4,7 @@
     box-sizing: border-box;
 
     -webkit-tap-highlight-color: transparent;
-    
+
     /* Hide scrollbar for Firefox and IE/Edge */
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -1687,7 +1687,7 @@ body {
 
 .auth-divider span {
     padding: 0 1rem;
-/* } */
+    /* } */
     font-size: 0.9rem;
     display: none;
 }

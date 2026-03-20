@@ -76,3 +76,25 @@ Highlighted Headers: The university abbreviations are enlarged and center-aligne
 Link Details: Inside the expanded content, each underlying project has a stylized link (<a>) as its title, as well as a paragraph section (<p>) below it serving as a designated area where descriptions are showcased (I've included brief placeholder descriptions for you to edit as needed!).
 Interactive Capabilities: I've ensured the toggle functions are active, so the dropdowns will work effortlessly right out of the box.
 The file is saved and ready to be viewed in your browser layout. Let me know if you need any adjustments or if you have any more projects to add!
+
+---
+
+> User
+
+make the titles and their descriptions center aligned o mobile displays as well
+
+please replace <span> tags under  class="course-dropdown" in 
+
+inspirations.html
+  to <p> tags. maybe it was causing the titles not to be center aligned
+
+> AI
+
+You were exactly right! I've replaced those <span> tags with <p> tags (and added margin: 0 to ensure they don't introduce awkward line gaps).
+
+The issue was that 
+
+style.css
+ has a specific rule for .course-header span that turns spans into flex containers on mobile, completely bypassing our inline text-align rules. Changing them to <p> tags dodges that rule entirely and restores the perfect center alignment for your headers.
+
+It's updated and saved, so it should be looking crisp and centered now. Any other adjustments needed?
