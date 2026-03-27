@@ -720,8 +720,9 @@
         const COL_PROJECT_TITLE = 6;  // "Project Title"
         const COL_PROJECT_LINK = 7;   // "Project Link"
         const COL_PROJECT_TYPE = 8;   // "Project Type"
-        const COL_DEPARTMENT = 9;  // "Department"
-        const COL_BATCH = 10;      // "Batch"
+        const COL_DEPARTMENT = 10; // "Department"
+        const COL_BATCH = 11;      // "Batch"
+        const COL_DETAILS = 12;    // "Additional Details"
 
         // Store all contributors data for modal
         let allContributorsData = new Map();
@@ -785,8 +786,9 @@
                     const projectTitle = row.c[COL_PROJECT_TITLE]?.v ? String(row.c[COL_PROJECT_TITLE].v) : '';
                     const projectLink = row.c[COL_PROJECT_LINK]?.v ? String(row.c[COL_PROJECT_LINK].v) : '';
                     const projectType = row.c[COL_PROJECT_TYPE]?.v ? String(row.c[COL_PROJECT_TYPE].v) : '';
+                    const additionalDetails = row.c[COL_DETAILS]?.v ? String(row.c[COL_DETAILS].v) : '';
 
-                    const resource = { title: projectTitle, link: projectLink, type: projectType };
+                    const resource = { title: projectTitle, link: projectLink, type: projectType, details: additionalDetails };
 
                     // Store chronological submission
                     chronologicalSubmissions.push({
@@ -1033,6 +1035,7 @@
                         <div class="resource-item">
                             <div class="resource-title">${escapeHtml(resource.title || 'Untitled Resource')}</div>
                             ${typeHtml}
+                            ${resource.details ? `<div class="resource-details" style="color: #a0a0a0; font-size: 0.85rem; margin-bottom: 0.75rem; line-height: 1.4;">${escapeHtml(resource.details)}</div>` : ''}
                             ${resource.link ? `
                                 <a href="${escapeHtml(resource.link)}" target="_blank" class="resource-link">
                                     <i class="fa-solid fa-link"></i>
