@@ -715,6 +715,7 @@
 
         // Column indices (0-based) - based on your form columns
         const COL_EMAIL = 2;       // "Student Education Email"
+        const COL_SUBMISSION_FOR = 3; // "What is this submission for?"
         const COL_NAME = 4;        // "Your Name"
         const COL_SOCIAL = 5;      // "Contacts and Social Links"
         const COL_PROJECT_TITLE = 6;  // "Project Title"
@@ -786,9 +787,10 @@
                     const projectTitle = row.c[COL_PROJECT_TITLE]?.v ? String(row.c[COL_PROJECT_TITLE].v) : '';
                     const projectLink = row.c[COL_PROJECT_LINK]?.v ? String(row.c[COL_PROJECT_LINK].v) : '';
                     const projectType = row.c[COL_PROJECT_TYPE]?.v ? String(row.c[COL_PROJECT_TYPE].v) : '';
+                    const submissionFor = row.c[COL_SUBMISSION_FOR]?.v ? String(row.c[COL_SUBMISSION_FOR].v) : '';
                     const additionalDetails = row.c[COL_DETAILS]?.v ? String(row.c[COL_DETAILS].v) : '';
 
-                    const resource = { title: projectTitle, link: projectLink, type: projectType, details: additionalDetails };
+                    const resource = { title: projectTitle, link: projectLink, type: projectType, submissionFor: submissionFor, details: additionalDetails };
 
                     // Store chronological submission
                     chronologicalSubmissions.push({
@@ -796,6 +798,7 @@
                         deptBatch: [department, batch].filter(Boolean).join(' • '),
                         title: projectTitle,
                         type: projectType,
+                        submissionFor: submissionFor,
                         link: projectLink
                     });
 
@@ -1023,6 +1026,7 @@
             // Render resources
             modalResources.innerHTML = contributor.resources
                 .filter(r => r.title || r.link) // Only show resources with title or link
+                .reverse() // Sort from bottom to top (most recent first)
                 .map(resource => {
                     const typePage = getResourceTypePage(resource.type);
                     const typeHtml = resource.type
@@ -1030,11 +1034,14 @@
                             ? `<a href="${typePage}" class="resource-type">${escapeHtml(resource.type)}</a>`
                             : `<span class="resource-type">${escapeHtml(resource.type)}</span>`)
                         : '';
+                    const submissionForHtml = resource.submissionFor
+                        ? `<span class="resource-type" style="background: rgba(156, 39, 176, 0.2); color: #ce93d8; margin-left: 0.5rem;">${escapeHtml(resource.submissionFor)}</span>`
+                        : '';
 
                     return `
                         <div class="resource-item">
                             <div class="resource-title">${escapeHtml(resource.title || 'Untitled Resource')}</div>
-                            ${typeHtml}
+                            ${submissionForHtml} ${typeHtml}
                             ${resource.details ? `<div class="resource-details" style="color: #a0a0a0; font-size: 0.85rem; margin-bottom: 0.75rem; line-height: 1.4;">${escapeHtml(resource.details)}</div>` : ''}
                             ${resource.link ? `
                                 <a href="${escapeHtml(resource.link)}" target="_blank" class="resource-link">
@@ -1096,10 +1103,19 @@
                         ? `<a href="${typePage}" style="text-decoration: none;">${typeBadgeHtml}</a>`
                         : typeBadgeHtml;
 
+                    const submissionForBadgeHtml = item.submissionFor
+                        ? `<span class="recent-type-badge" style="background: rgba(156, 39, 176, 0.2); color: #ce93d8;">
+                            <i class="fa-solid fa-bullseye"></i>
+                            ${escapeHtml(item.submissionFor)}
+                           </span>`
+                        : '';
+
                     return `
                         <div class="recent-item">
                             <div class="recent-item-header">
+                                ${submissionForBadgeHtml}
                                 ${typeLinkHtml}
+                                
                             </div>
                             <p class="recent-item-text">
                                 <strong>${escapeHtml(item.name)}</strong> contributed: 
